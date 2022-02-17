@@ -7,10 +7,12 @@
     tools:context=".MainActivity">
 
     <ListView
+        android:id="@+id/ListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/ListView"
-        tools:listitem="@layout/object_list"/>
+        tools:layout_editor_absoluteX="-31dp"
+        tools:layout_editor_absoluteY="-304dp"
+        tools:listitem="@layout/object_list" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

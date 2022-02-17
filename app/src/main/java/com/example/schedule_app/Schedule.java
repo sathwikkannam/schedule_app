@@ -2,14 +2,14 @@ package com.example.schedule_app;
 
 
 public class Schedule {
-    private String week;
+    private final String week;
     private String day;
     private String date;
-    private String duration;
-    private String course;
-    private String teacher;
-    private String room;
-    private String info;
+    private final String duration;
+    private final String course;
+    private final String teacher;
+    private final String room;
+    private final String info;
 
 
     public Schedule(String week, String day, String date, String duration, String course, String teacher, String room, String info) {

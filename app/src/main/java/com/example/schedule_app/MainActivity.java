@@ -30,51 +30,55 @@ public class MainActivity extends AppCompatActivity {
 
         executor.execute(() -> {
             sortElements();
-            checkClasses();
             runOnUiThread(this::setAdapter);
 
         });
     }
 
-    public void checkClasses(){
-        for (int i = 0; i < classes.size(); i++) {
-            if (classes.get(i).getDay().equals("") && classes.get(i).getDate().equals("")) {
-                for (int j = i - 1; j >= 0; j--) {
-                    if (!classes.get(j).getDay().equals("") && !classes.get(j).getDate().equals("")) {
-                        classes.get(i).setDay(classes.get(j).getDay());
-                        classes.get(i).setDate(classes.get(j).getDate());
-                    }
-                }
-
-            }
-
-        }
-    }
 
     public void sortElements() {
         try {
             document = Jsoup.connect(url).get();
-            for (Element elem : document.select("table.schemaTabell tr")) {
-                String week = elem.select(".data.vecka").text();
-                String day = elem.select("td.data.commonCell:nth-of-type(2)").text();
-                String date = elem.select("td.data.commonCell:nth-of-type(3)").text();
-                String time = elem.select("td.data.commonCell:nth-of-type(4)").text();
-                String course = elem.select("td.commonCell:nth-of-type(5)").text();
-                String teacher = elem.select("td.commonCell:nth-of-type(6)").text();
-                String room = elem.select("td.commonCell:nth-of-type(7)").text();
-                String info = elem.select("td.data.commonCell:nth-of-type(9)").text();
-
-                classes.add(new Schedule(week, day, date, time, course, teacher, room, info));
-            }
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        for (Element elem : document.select("table.schemaTabell tr")) {
+            String week = elem.select(".data.vecka").text();
+            String day = elem.select("td.data.commonCell:nth-of-type(2)").text();
+            String date = elem.select("td.data.commonCell:nth-of-type(3)").text();
+            String time = elem.select("td.data.commonCell:nth-of-type(4)").text();
+            String course = elem.select("td.commonCell:nth-of-type(5)").text();
+            String teacher = elem.select("td.commonCell:nth-of-type(6)").text();
+            String room = elem.select("td.commonCell:nth-of-type(7)").text();
+            String info = elem.select("td.data.commonCell:nth-of-type(9)").text();
+
+            // Basically the 11 is the length of Time String eg: 10:00-15:00. So if there is a time, there is a class.
+            if(time.length() >= 11){
+                classes.add(new Schedule(week, day, date, time, course, teacher, room, info));
+            }
+
+        }
+
+        for (int i = 0; i < classes.size(); i++) {
+            if(classes.get(i).getDate().length() == 0 && classes.get(i).getDay().length() == 0){
+                for (int j = i-1; j >=0; j--) {
+                    if(classes.get(j).getDate().length() != 0 && classes.get(j).getDay().length() != 0){
+                        classes.get(i).setDay(classes.get(j).getDay());
+                        classes.get(i).setDate(classes.get(j).getDate());
+                        break;
+                    }
+                }
+            }
+        }
+
     }
 
+    
     public void setAdapter(){
         adapter = new ScheduleAdapter(MainActivity.this, classes);
         listView = findViewById(R.id.ListView);
         listView.setAdapter(adapter);
     }
+
 }
