@@ -74,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    
+
     public void setAdapter(){
         adapter = new ScheduleAdapter(MainActivity.this, classes);
         listView = findViewById(R.id.ListView);
