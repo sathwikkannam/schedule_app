@@ -12,7 +12,10 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-31dp"
         tools:layout_editor_absoluteY="-304dp"
-        tools:listitem="@layout/object_list" />
+        tools:listitem="@layout/object_list"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

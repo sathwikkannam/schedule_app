@@ -1,5 +1,6 @@
 package com.example.schedule_app;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,11 +14,15 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
+    private final Translation translation;
 
     public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable) {
         super(context, R.layout.object_list, timetable);
+        this.translation = new Translation();
     }
 
+
+    @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
@@ -36,12 +41,17 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView room = convertView.findViewById(R.id.Room);
 
         date.setText(schedule.getDate());
-        day.setText(schedule.getDay());
+        day.setText(translation.getTranslatedDay(schedule.getDay()));
         duration.setText(schedule.getDuration());
         course.setText(schedule.getCourse());
         teacher.setText(schedule.getTeacher());
-        info.setText(schedule.getInfo());
         room.setText(schedule.getRoom());
+
+        if(schedule.getInfo().length() <= 35){
+            info.setText(schedule.getInfo());
+        }else{
+            info.setText(schedule.getInfo().substring(0, 36) + "...");
+        }
 
         return convertView;
     }

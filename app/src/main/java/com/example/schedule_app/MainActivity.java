@@ -3,7 +3,9 @@ package com.example.schedule_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -19,24 +21,40 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     Document document;
     ScheduleAdapter adapter;
-    final String url = "https://schema.hkr.se/setup/jsp/Schema.jsp?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=SV&sokMedAND=true&forklaringar=true&resurser=p.TBIT2+2021+35+100+NML+en";
+    TextView editText;
+    Button button;
+    String website;
+    TextView status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
+        setContentView(R.layout.enter_website);
+        editText = findViewById(R.id.EditText12);
+        button = findViewById(R.id.buttonf);
+        status = findViewById(R.id.status);
 
-        executor.execute(() -> {
-            sortElements();
-            runOnUiThread(this::setAdapter);
+        button.setOnClickListener(View ->{
+            if(editText.getText().toString().contains("schema.hkr.se")){
+                status.setText("Success");
+                website = editText.getText().toString();
+                executor.execute(() -> {
+                    sortElements(website);
+                    runOnUiThread(this::setAdapter);
 
+                });
+            }else{
+                status.setText("Error!");
+            }
         });
+
+
     }
 
 
-    public void sortElements() {
+    public void sortElements(String url) {
         try {
             document = Jsoup.connect(url).get();
         } catch (IOException e) {
@@ -76,9 +94,12 @@ public class MainActivity extends AppCompatActivity {
 
 
     public void setAdapter(){
+        setContentView(R.layout.activity_main);
         adapter = new ScheduleAdapter(MainActivity.this, classes);
         listView = findViewById(R.id.ListView);
         listView.setAdapter(adapter);
+
     }
+
 
 }
