@@ -1,32 +1,31 @@
 package com.example.schedule_app;
 
 import java.util.Hashtable;
-
 public class Translation {
-    private final Hashtable<String, String> translateDays;
+    private final Hashtable<String, String> translate;
 
     public Translation(){
-        this.translateDays = new Hashtable<>();
+        this.translate = new Hashtable<>();
         sortTranslateDays();
 
     }
 
     public void sortTranslateDays(){
-        translateDays.put("Mån", "Mon");
-        translateDays.put("Tis", "Tue");
-        translateDays.put("Ons", "Wed");
-        translateDays.put("Tor", "Thur");
-        translateDays.put("Fre", "Fri");
-        translateDays.put("Lör", "Sat");
-        translateDays.put("Sön", "Sun");
+        translate.put("Mån", "Mon");
+        translate.put("Tis", "Tue");
+        translate.put("Ons", "Wed");
+        translate.put("Tor", "Thur");
+        translate.put("Fre", "Fri");
+        translate.put("Lör", "Sat");
+        translate.put("Sön", "Sun");
+        translate.put("Maj", "May");
 
     }
 
-    public String getTranslatedDay(String day){
-        return this.translateDays.get(day);
+    public String getTranslated(String key){
+        return (this.translate.get(key) != null)? this.translate.get(key): key;
+
     }
-
-
 
 
 }

@@ -21,7 +21,6 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         this.translation = new Translation();
     }
 
-
     @SuppressLint("SetTextI18n")
     @NonNull
     @Override
@@ -40,8 +39,8 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        date.setText(schedule.getDate());
-        day.setText(translation.getTranslatedDay(schedule.getDay()));
+        date.setText(translation.getTranslated(schedule.getDate()));
+        day.setText(translation.getTranslated(schedule.getDay()));
         duration.setText(schedule.getDuration());
         course.setText(schedule.getCourse());
         teacher.setText(schedule.getTeacher());

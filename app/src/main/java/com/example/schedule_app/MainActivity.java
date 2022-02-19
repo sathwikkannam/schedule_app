@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import org.jsoup.Jsoup;
@@ -17,50 +18,64 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
-    ArrayList<Schedule> classes = new ArrayList<>();
+    ArrayList<Schedule> classes;
     ListView listView;
     Document document;
     ScheduleAdapter adapter;
     TextView editText;
     Button button;
     String website;
-    TextView status;
+    ExecutorService executor;
+    Data data;
+    ProgressBar bar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        data = new Data(getApplicationContext(), "UserData");
+        executor = Executors.newSingleThreadExecutor();
 
-        ExecutorService executor = Executors.newSingleThreadExecutor();
-        setContentView(R.layout.enter_website);
-        editText = findViewById(R.id.EditText12);
-        button = findViewById(R.id.buttonf);
-        status = findViewById(R.id.status);
 
-        button.setOnClickListener(View ->{
-            if(editText.getText().toString().contains("schema.hkr.se")){
-                status.setText("Success");
-                website = editText.getText().toString();
-                executor.execute(() -> {
-                    sortElements(website);
-                    runOnUiThread(this::setAdapter);
+        if(data.isEmpty()){
+            setContentView(R.layout.enter_website);
+            editText = findViewById(R.id.EditText12);
+            button = findViewById(R.id.buttonf);
 
-                });
-            }else{
-                status.setText("Error!");
-            }
-        });
+            button.setOnClickListener(View ->{
+                if(editText.getText().toString().contains("schema.hkr.se")){
+                    website = editText.getText().toString();
+                    executor.execute(() -> {
+                        runOnUiThread(() ->{
+                            bar = findViewById(R.id.loader);
+                            bar.setVisibility(android.view.View.VISIBLE);
 
+                        });
+                        sortElements(website);
+                        runOnUiThread(this::setAdapter);
+                    });
+                }
+            });
+
+        }else{
+            setContentView(R.layout.activity_main);
+            executor.execute(() -> {
+                sortElements(data.getDefaultValue());
+                runOnUiThread(this::setAdapter);
+
+            });
+        }
 
     }
 
-
     public void sortElements(String url) {
+        classes = new ArrayList<>();
+
         try {
             document = Jsoup.connect(url).get();
+            data.putForDefaultKey(website);
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         for (Element elem : document.select("table.schemaTabell tr")) {
             String week = elem.select(".data.vecka").text();
             String day = elem.select("td.data.commonCell:nth-of-type(2)").text();
@@ -92,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-
     public void setAdapter(){
         setContentView(R.layout.activity_main);
         adapter = new ScheduleAdapter(MainActivity.this, classes);
@@ -100,6 +114,5 @@ public class MainActivity extends AppCompatActivity {
         listView.setAdapter(adapter);
 
     }
-
 
 }
