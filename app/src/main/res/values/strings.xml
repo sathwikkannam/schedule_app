@@ -3,4 +3,10 @@
     <string name="enter">Enter</string>
     <string name="enter_a_https_schema_hkr_se">Enter a https://schema.hkr.se...</string>
     <string name="enter_a_website">Enter a website</string>
+    <string name="program">Program</string>
+    <string name="teacher">Teacher</string>
+    <string name="room">Room</string>
+    <string name="date">Date</string>
+    <string name="duration">Duration</string>
+    <string name="info">Info</string>
 </resources>

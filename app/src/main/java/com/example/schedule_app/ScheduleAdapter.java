@@ -21,7 +21,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         this.translation = new Translation();
     }
 
-    @SuppressLint("SetTextI18n")
+    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
@@ -32,25 +32,25 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         }
 
         TextView date = convertView.findViewById(R.id.Date);
-        TextView day = convertView.findViewById(R.id.Day);
         TextView duration = convertView.findViewById(R.id.Duration);
         TextView course = convertView.findViewById(R.id.Course);
         TextView teacher = convertView.findViewById(R.id.Teacher);
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        date.setText(translation.getTranslated(schedule.getDate()));
-        day.setText(translation.getTranslated(schedule.getDay()));
+        date.setText(translation.getTranslated(schedule.getDate()) + " " + translation.getTranslated(schedule.getDay()));
         duration.setText(schedule.getDuration());
-        course.setText(schedule.getCourse());
+        course.setText(translation.getTranslated(schedule.getCourse()));
         teacher.setText(schedule.getTeacher());
         room.setText(schedule.getRoom());
+
 
         if(schedule.getInfo().length() <= 35){
             info.setText(schedule.getInfo());
         }else{
             info.setText(schedule.getInfo().substring(0, 36) + "...");
         }
+        convertView.setBackground(getContext().getResources().getDrawable(R.drawable.rectangle));
 
         return convertView;
     }

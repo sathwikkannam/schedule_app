@@ -1,7 +1,9 @@
 package com.example.schedule_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;

@@ -1,73 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:layout_width="360dp"
-        android:layout_height="116dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:src="@drawable/rectangle">
-
-    </ImageView>
+    android:layout_height="match_parent"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="40dp"
+    android:paddingBottom="40dp">
 
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:id="@+id/Date" />
-
-
-    <TextView
-        android:id="@+id/Day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toEndOf="@+id/Date"
-        android:layout_marginTop="30dp"
-        android:layout_marginStart="10dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/Room"
-        android:layout_below="@+id/Date"
-        android:layout_marginStart="30dp" />
-
-    <TextView
-        android:id="@+id/Duration"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginEnd="30dp"
-        android:layout_marginTop="30dp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/Course"
-        android:layout_below="@id/Date"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="20dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/Teacher"
-        android:layout_below="@id/Course"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="5dp" />
+        android:fontFamily="@font/habibi"
+        android:layout_marginEnd="60dp"
+        android:text="@string/program"
+        android:textSize="30sp" />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Course"
+        android:text="@string/teacher"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="180dp"
+        android:fontFamily="@font/aleo"
+        android:textSize="17sp"
+        android:id="@+id/Teacher"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/room"
+        android:layout_marginEnd="100dp"
+        android:layout_below="@+id/Teacher"
+        android:fontFamily="@font/ibm_plex_mono_semibold"
+        android:textSize="17sp"
+        android:id="@+id/Room"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Course"
+        android:layout_marginTop="7dp"
+        android:gravity="end"
+        android:id="@+id/Date"
+        android:textSize="17sp"
+        android:fontFamily="@font/aleo_bold"
+        android:text="@string/date"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/Date"
+        android:gravity="end"
+        android:text="@string/duration"
+        android:textSize="17sp"
+        android:id="@+id/Duration"
+        android:fontFamily="@font/alata"/>
+
+    <TextView
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/Info"
-        android:layout_below="@+id/Teacher"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="5dp"
-        android:layout_centerInParent="true" />
-
+        android:layout_below="@+id/Room"
+        android:text="@string/info"
+        android:layout_marginTop="17dp"
+        android:gravity="center"
+        android:fontFamily="@font/aleo"
+        android:textSize="17sp"/>
 
 </RelativeLayout>
