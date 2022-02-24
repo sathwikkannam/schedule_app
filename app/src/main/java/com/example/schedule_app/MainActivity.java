@@ -1,9 +1,7 @@
 package com.example.schedule_app;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
@@ -16,6 +14,7 @@ import org.jsoup.nodes.Element;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -34,10 +33,15 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        Objects.requireNonNull(getSupportActionBar()).hide();
         data = new Data(getApplicationContext(), "UserData");
         executor = Executors.newSingleThreadExecutor();
+        executeSystem();
 
+    }
 
+    public void executeSystem(){
         if(data.isEmpty()){
             setContentView(R.layout.enter_website);
             editText = findViewById(R.id.EditText12);
@@ -61,11 +65,12 @@ public class MainActivity extends AppCompatActivity {
         }else{
             setContentView(R.layout.activity_main);
             executor.execute(() -> {
-                sortElements(data.getDefaultValue());
+                sortElements(data.getScheduleLink());
                 runOnUiThread(this::setAdapter);
 
             });
         }
+
 
     }
 
@@ -74,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         try {
             document = Jsoup.connect(url).get();
-            data.putForDefaultKey(website);
+            data.putScheduleLinkString(website);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -88,7 +93,6 @@ public class MainActivity extends AppCompatActivity {
             String room = elem.select("td.commonCell:nth-of-type(7)").text();
             String info = elem.select("td.data.commonCell:nth-of-type(9)").text();
 
-            // Basically the 11 is the length of Time String eg: 10:00-15:00. So if there is a time, there is a class.
             if(time.length() >= 11){
                 classes.add(new Schedule(week, day, date, time, course, teacher, room, info));
             }
@@ -111,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void setAdapter(){
         setContentView(R.layout.activity_main);
-        adapter = new ScheduleAdapter(MainActivity.this, classes);
+        adapter = new ScheduleAdapter(MainActivity.this, classes, findViewById(R.id.object_layout));
         listView = findViewById(R.id.ListView);
         listView.setAdapter(adapter);
 

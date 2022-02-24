@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 
-public class Data {
+public class Data{
     private final SharedPreferences.Editor writer;
     private final SharedPreferences getPreferencesReader;
     private final String name;
@@ -20,11 +20,10 @@ public class Data {
     }
 
     public void put(String key, String value){
-        this.writer.putString(key, value);
-        this.writer.apply();
+        this.writer.putString(key, value).apply();
     }
 
-    public String get(String key){
+    public String getString(String key){
         return this.getPreferencesReader.getString(key, "");
     }
 
@@ -40,16 +39,31 @@ public class Data {
         return this.name;
     }
 
-    public String getDefaultValue(){
+    public String getScheduleLink(){
         return this.getPreferencesReader.getString(this.defaultKey, "");
     }
 
-    public void putForDefaultKey(String value){
-        if(isEmpty()){
-            this.writer.putString(this.defaultKey, value);
-            this.writer.apply();
+    public void putScheduleLinkString(String value){
+        if(getScheduleLink() == null || getScheduleLink().length() == 0){
+            this.writer.putString(this.defaultKey, value).apply();
+
         }
 
     }
 
+    public void remove(String key){
+        this.writer.remove(key).apply();
+    }
+
+    public String getDefaultKey(){
+        return this.defaultKey;
+    }
+
+    public void putBoolean(String key, boolean value){
+        this.writer.putBoolean(key, value).apply();
+    }
+
+    public boolean getBoolean(String key){
+        return this.getPreferencesReader.getBoolean(key, false);
+    }
 }
