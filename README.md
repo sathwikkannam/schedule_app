@@ -25,7 +25,7 @@ Main page                  |  Settings
   
 # Plans
 
-- Finish the backend of the settings page
+- ~~Finish the backend of the settings page~~
 
 - Support for English and Swedish languages (As of recent, English and Swedish languages are supported but limited. The information of each class remains by default (Swedish). Therefore, an API is required)
 
