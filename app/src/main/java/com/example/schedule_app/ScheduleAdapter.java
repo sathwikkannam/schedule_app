@@ -6,23 +6,25 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import org.w3c.dom.Text;
-
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     private final Translation translation;
-    private final RelativeLayout layout;
+    private final boolean englishSetting;
+    private final ArrayList<Schedule> classes ;
 
-    public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable, RelativeLayout layout) {
+    public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable, boolean englishSetting) {
         super(context, R.layout.object_list, timetable);
-        this.layout = layout;
+        this.englishSetting = englishSetting;
+        this.classes  = timetable;
         this.translation = new Translation();
     }
 
@@ -30,6 +32,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+        final String dot = "...";
         Schedule schedule = getItem(position);
 
         if(convertView == null){
@@ -43,90 +46,94 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        // this algorithm is for grouping the courses in the same day in a same cell by creating bunch of textviews.
-        if(position != 0 && getItem(position-1).getDate().equals(getItem(position).getDate())){
-            TextView currentCourse;
+        setLanguageText(schedule, date, course, duration, teacher, room);
+        setInfo(schedule, info, dot);
+        setBackgrounds(position, convertView);
+        setOnClick(convertView, info, schedule, dot);
 
-            if(getItem(position-1).getCourse().equals(getItem(position).getCourse())){
-                currentCourse = new TextView(getContext());
-            }
-
-
-            TextView currentDate = new TextView(getContext());
-            TextView differentRoom = new TextView(getContext());
-            TextView differentDuration = new TextView(getContext());
-            TextView differentTeacher = new TextView(getContext());
-            TextView differentInfo = new TextView(getContext());
-
-            currentDate.setGravity(View.FOCUS_RIGHT);
-            differentRoom.setGravity(View.FOCUS_LEFT);
-            differentDuration.setGravity(View.FOCUS_RIGHT);
-            differentTeacher.setGravity(View.FOCUS_LEFT);
-            differentInfo.setGravity(View.TEXT_ALIGNMENT_CENTER);
-
-            RelativeLayout.LayoutParams layoutDate = (RelativeLayout.LayoutParams) currentDate.getLayoutParams();
-            RelativeLayout.LayoutParams layoutTeacher = (RelativeLayout.LayoutParams) differentTeacher.getLayoutParams();
-            RelativeLayout.LayoutParams layoutCourse = (RelativeLayout.LayoutParams) course.getLayoutParams();
-            RelativeLayout.LayoutParams layoutDuration = (RelativeLayout.LayoutParams) differentDuration.getLayoutParams();
-            RelativeLayout.LayoutParams layoutInfo = (RelativeLayout.LayoutParams) differentInfo.getLayoutParams();
-            RelativeLayout.LayoutParams layoutRoom = (RelativeLayout.LayoutParams) differentRoom.getLayoutParams();
-
-            layoutDate.addRule(RelativeLayout.BELOW, info.getId());
-            layoutTeacher.addRule(RelativeLayout.BELOW, differentInfo.getId());
-            layoutRoom.addRule(RelativeLayout.BELOW, differentTeacher.getId());
-            layoutDuration.addRule(RelativeLayout.BELOW, currentDate.getId());
-            layoutInfo.addRule(RelativeLayout.BELOW, differentRoom.getId());
-
-            currentDate.setLayoutParams(layoutDate);
-            differentTeacher.setLayoutParams(layoutTeacher);
-            differentRoom.setLayoutParams(layoutRoom);
-            differentDuration.setLayoutParams(layoutDuration);
-            differentInfo.setLayoutParams(layoutInfo);
-
-            currentDate.setText(getItem(position).getDate());
-            differentRoom.setText(getItem(position).getRoom());
-            differentDuration.setText(getItem(position).getDuration());
-            differentTeacher.setText(getItem(position).getTeacher());
-            differentInfo.setText(getItem(position).getInfo());
-
-            currentDate.setFontFeatureSettings(date.getFontFeatureSettings());
-            differentRoom.setFontFeatureSettings(room.getFontFeatureSettings());
-            differentDuration.setFontFeatureSettings(duration.getFontFeatureSettings());
-            differentTeacher.setFontFeatureSettings(teacher.getFontFeatureSettings());
-            differentInfo.setFontFeatureSettings(info.getFontFeatureSettings());
-
-            //left top right bottom
-            currentDate.setPadding(date.getTotalPaddingLeft(), date.getTotalPaddingTop(), date.getTotalPaddingRight(), date.getTotalPaddingBottom());
-            differentRoom.setPadding(room.getTotalPaddingLeft(), room.getTotalPaddingTop(), room.getTotalPaddingRight(), room.getTotalPaddingBottom());
-            differentDuration.setPadding(duration.getTotalPaddingLeft(), duration.getTotalPaddingTop(), duration.getTotalPaddingRight(), duration.getTotalPaddingBottom());
-            differentTeacher.setPadding(teacher.getTotalPaddingLeft(), teacher.getTotalPaddingTop(), teacher.getTotalPaddingRight(), teacher.getTotalPaddingBottom());
-            differentInfo.setPadding(info.getTotalPaddingLeft(), info.getTotalPaddingTop(), info.getTotalPaddingRight(), info.getTotalPaddingBottom());
-
-            this.layout.addView(currentDate);
-            this.layout.addView(differentRoom);
-            this.layout.addView(differentDuration);
-            this.layout.addView(differentTeacher);
-            this.layout.addView(differentInfo);
-
-        }else{
-            date.setText(translation.getTranslated(schedule.getDate()) + " " + translation.getTranslated(schedule.getDay()));
-            duration.setText(schedule.getDuration());
-            course.setText(translation.getTranslated(schedule.getCourse()));
-            teacher.setText(schedule.getTeacher());
-            room.setText(schedule.getRoom());
+        return convertView;
+    }
 
 
-            if(schedule.getInfo().length() <= 35){
-                info.setText(schedule.getInfo());
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public void setBackgrounds(int position, @Nullable View convertView){
+        boolean isOutOfIndex = position != 0 && position != this.classes.size()-1;
+        String currentDate = null;
+        String previousDate = null;
+        String nextBlockDate = null;
+
+        if(isOutOfIndex){
+            currentDate = getItem(position).getDate();
+            previousDate = getItem(position-1).getDate();
+            nextBlockDate = getItem(position+1).getDate();
+        }
+
+        if(convertView != null){
+            if(isOutOfIndex && currentDate.equals(previousDate) && currentDate.equals(nextBlockDate)){
+                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.middle_rectangle));
+            }else if(isOutOfIndex && currentDate.equals(previousDate)){
+                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.upper_rectangle));
+            }else if(isOutOfIndex && currentDate.equals(nextBlockDate)){
+                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.lower_rectangle));
             }else{
-                info.setText(schedule.getInfo().substring(0, 36) + "...");
+                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.blue_recentagle));
+            }
+        }
+
+    }
+
+
+    public void setOnClick(@Nullable View convertView, TextView info, Schedule schedule, String dot){
+        // on-click, the entire information is displayed.
+        if(convertView != null){
+            convertView.setOnClickListener(View ->{
+                if(info.getText().toString().substring(info.getText().length()-3).equals(dot)) {
+                    info.setText(schedule.getInfo());
+                }
+            });
+
+        }
+    }
+
+    @SuppressLint("UseCompatLoadingForDrawables")
+    public void matchCurrentDate(@Nullable View convertView, TextView date){
+         //if the current matches the current position's date
+
+        if(convertView != null){
+            String currentDate = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(new Date());
+            if(date.getText().toString().substring(0, date.getText().length() - 4).equals(currentDate)){
+                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.outlined_rectangle));
+            }else{
+                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.blue_recentagle));
             }
 
         }
 
-        convertView.setBackground(getContext().getResources().getDrawable(R.drawable.rectangle));
-
-        return convertView;
     }
+
+    public void setInfo(Schedule schedule, TextView info, String dot){
+        if(schedule.getInfo().length() <= 36){
+            info.setText(schedule.getInfo());
+        }else{
+            info.setText(schedule.getInfo().substring(0, 36) + dot);
+        }
+    }
+
+
+    public void setLanguageText(Schedule schedule, TextView date, TextView course, TextView duration, TextView teacher, TextView room){
+        if(this.englishSetting){
+            date.setText(String.format("%s %s", translation.getTranslated(schedule.getDate()), translation.getTranslated(schedule.getDay())));
+            course.setText(translation.getTranslated(schedule.getCourse()));
+        }else{
+            date.setText(String.format("%s %s", schedule.getDate(), schedule.getDay()));
+            course.setText(schedule.getCourse());
+        }
+        duration.setText(schedule.getDuration());
+        teacher.setText(schedule.getTeacher());
+        room.setText(schedule.getRoom());
+
+    }
+
+
 
 }

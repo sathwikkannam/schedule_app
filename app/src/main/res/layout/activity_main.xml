@@ -1,37 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="10dp"
     tools:context=".MainActivity"
-    android:id="@+id/menuLayout">
+    android:id="@+id/ListViewLayout">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <ListView
+        android:id="@+id/ListView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <ListView
-            android:id="@+id/ListView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:layout_editor_absoluteX="-31dp"
-            tools:layout_editor_absoluteY="-304dp"
-            tools:listitem="@layout/object_list"
-            android:divider="@null"
-            android:dividerHeight="0dp"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    <com.google.android.material.navigation.NavigationView
-        android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        app:headerLayout="@layout/navigation_header"
-        app:menu="@menu/menu_view"
-        android:layout_gravity="start"
-        android:fitsSystemWindows="true"/>
+        tools:layout_editor_absoluteX="-31dp"
+        tools:layout_editor_absoluteY="-304dp"
+        tools:listitem="@layout/object_list"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        />
 
-
-</androidx.drawerlayout.widget.DrawerLayout>
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginEnd="10dp"
+        android:id="@+id/FabInSchedule"
+        android:gravity="center"
+        android:contentDescription="@string/settings"
+        app:backgroundTint="#D56170"
+        android:src="@drawable/ic_baseline_settings_24"
+        app:fabSize="normal" />
+</RelativeLayout>

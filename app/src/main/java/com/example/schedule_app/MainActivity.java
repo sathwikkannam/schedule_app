@@ -2,11 +2,14 @@ package com.example.schedule_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -18,7 +21,7 @@ import java.util.Objects;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity{
     ArrayList<Schedule> classes;
     ListView listView;
     Document document;
@@ -29,20 +32,23 @@ public class MainActivity extends AppCompatActivity {
     ExecutorService executor;
     Data data;
     ProgressBar bar;
+    public final String TAG = "MyActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
+        data =  Data.getInstance(getApplicationContext(), "UserData");
+
+        super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        data = new Data(getApplicationContext(), "UserData");
+        data =  Data.getInstance(getApplicationContext(), "UserData");
+
         executor = Executors.newSingleThreadExecutor();
         executeSystem();
-
     }
 
     public void executeSystem(){
-        if(data.isEmpty()){
+        if(data.getScheduleLink() == null || data.getScheduleLink().length() == 0){
             setContentView(R.layout.enter_website);
             editText = findViewById(R.id.EditText12);
             button = findViewById(R.id.buttonf);
@@ -57,7 +63,10 @@ public class MainActivity extends AppCompatActivity {
 
                         });
                         sortElements(website);
-                        runOnUiThread(this::setAdapter);
+                        runOnUiThread(()->{
+                            setAdapter(data.getEnglishSetting());
+                            setUpFab(data.getEnglishSetting());
+                        });
                     });
                 }
             });
@@ -66,8 +75,10 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.activity_main);
             executor.execute(() -> {
                 sortElements(data.getScheduleLink());
-                runOnUiThread(this::setAdapter);
-
+                runOnUiThread(() ->{
+                    setAdapter(data.getEnglishSetting());
+                    setUpFab(data.getEnglishSetting());
+                });
             });
         }
 
@@ -98,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
         }
-
+        // for Schedule objects, if there are multiple classes a day.
         for (int i = 0; i < classes.size(); i++) {
             if(classes.get(i).getDate().length() == 0 && classes.get(i).getDay().length() == 0){
                 for (int j = i-1; j >=0; j--) {
@@ -113,11 +124,21 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setAdapter(){
+    public void setAdapter(Boolean englishSetting){
         setContentView(R.layout.activity_main);
-        adapter = new ScheduleAdapter(MainActivity.this, classes, findViewById(R.id.object_layout));
+        adapter = new ScheduleAdapter(MainActivity.this, classes, englishSetting);
         listView = findViewById(R.id.ListView);
         listView.setAdapter(adapter);
+    }
+
+    public void setUpFab(Boolean isEnglish){
+        FloatingActionButton fab = findViewById(R.id.FabInSchedule);
+        fab.bringToFront();
+        fab.setOnClickListener(view -> {
+            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
+            startActivity(intent);
+        });
+
 
     }
 

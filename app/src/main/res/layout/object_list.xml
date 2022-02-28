@@ -30,14 +30,14 @@
 
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/Room"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/room"
-        android:layout_marginEnd="100dp"
         android:layout_below="@+id/Teacher"
+        android:layout_marginEnd="100dp"
         android:fontFamily="@font/ibm_plex_mono_semibold"
-        android:textSize="17sp"
-        android:id="@+id/Room"/>
+        android:text="@string/room"
+        android:textSize="17sp" />
 
     <TextView
         android:layout_width="match_parent"

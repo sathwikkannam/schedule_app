@@ -6,15 +6,15 @@ public class Translation {
 
     public Translation(){
         this.translate = new Hashtable<>();
-        sortTranslateDays();
+        translateElements();
 
     }
 
-    public void sortTranslateDays(){
+    public void translateElements(){
         translate.put("Mån", "Mon");
         translate.put("Tis", "Tue");
         translate.put("Ons", "Wed");
-        translate.put("Tor", "Thur");
+        translate.put("Tor", "Thu");
         translate.put("Fre", "Fri");
         translate.put("Lör", "Sat");
         translate.put("Sön", "Sun");

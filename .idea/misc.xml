@@ -3,16 +3,31 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable-v21/app_widget_background.xml" value="0.117" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable-v21/app_widget_inner_view_background.xml" value="0.117" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/black_rectangle.xml" value="0.1815" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/blue_recentagle.xml" value="0.17" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/button.xml" value="0.1655" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/corner.xml" value="0.175" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/date_background.xml" value="0.179" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/equal_size_rectangle.xml" value="0.1815" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/ic_launcher_background.xml" value="0.173" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/ic_schedule.xml" value="0.1835" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/lower_rectangle.xml" value="0.139" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/middle_rectangle.xml" value="0.139" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/outlined_rectangle.xml" value="0.185" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/rectangle.xml" value="0.173" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/red_rectangle.xml" value="0.139" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/right_curved_rectangle.xml" value="0.179" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/drawable/upper_rectangle.xml" value="0.139" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/font/Epilogue.xml" value="0.16979166666666667" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout-v26/object_list.xml" value="0.4466666666666667" />
-        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/activity_main.xml" value="0.22" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout-v31/widget.xml" value="0.184375" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/activity_main.xml" value="1.183673469387755" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/enter_website.xml" value="0.184375" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/fragment_blank.xml" value="0.184375" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/fragment_settings.xml" value="0.184375" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/list_view_widget.xml" value="0.184375" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/menubar.xml" value="0.184375" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/navigation_header.xml" value="0.184375" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/object_list.xml" value="0.3333333333333333" />
@@ -20,6 +35,7 @@
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/test.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/test_listitem.xml" value="0.3333333333333333" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/testq1.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/layout/widget.xml" value="0.184375" />
         <entry key="..\:/Users/SAKA0191/AndroidStudioProjects/Schedule_App/app/src/main/res/menu/menu_view.xml" value="0.184375" />
       </map>
     </option>
