@@ -20,7 +20,7 @@ I will probably roll out the first version as soon as its finish.
 # Pictures
 Main page                  |  Settings
 :-------------------------:|:-------------------------:
-![Main Page](/images/state.jpg)  |  ![Settings](/images/settings.png)
+![Main Page](/images/state.jpg)  |  ![Settings](/images/settings.jpg)
 
   
 # Plans
