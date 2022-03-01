@@ -11,24 +11,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     private final Translation translation;
     private final boolean englishSetting;
-    private final ArrayList<Schedule> classes ;
+    private final int classesLength ;
 
     public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable, boolean englishSetting) {
         super(context, R.layout.object_list, timetable);
         this.englishSetting = englishSetting;
-        this.classes  = timetable;
+        this.classesLength  = timetable.size();
         this.translation = new Translation();
     }
 
-    @SuppressLint({"SetTextI18n", "UseCompatLoadingForDrawables"})
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
@@ -46,9 +42,9 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        setLanguageText(schedule, date, course, duration, teacher, room);
+        setLanguageBasedText(schedule, date, course, duration, teacher, room);
         setInfo(schedule, info, dot);
-        setBackgrounds(position, convertView);
+        setBackgrounds(position, convertView, date);
         setOnClick(convertView, info, schedule, dot);
 
         return convertView;
@@ -56,32 +52,38 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public void setBackgrounds(int position, @Nullable View convertView){
-        boolean isOutOfIndex = position != 0 && position != this.classes.size()-1;
-        String currentDate = null;
-        String previousDate = null;
-        String nextBlockDate = null;
+    public void setBackgrounds(int position, @Nullable View convertView, TextView list_date){
+        String currentDate;
+        String previousDate;
+        String nextBlockDate;
+        Date date = new Date("d MMM");
+        Shape shape = new Shape(getContext());
+        String blockDate = list_date.getText().toString().substring(0, list_date.getText().length()-4);
 
-        if(isOutOfIndex){
-            currentDate = getItem(position).getDate();
-            previousDate = getItem(position-1).getDate();
-            nextBlockDate = getItem(position+1).getDate();
+        if(blockDate.equals(date.getTodayDate())){
+            shape.toRed();
+        }if(blockDate.equals(date.getTomorrowDate())){
+            shape.toKindaBlue();
         }
 
-        if(convertView != null){
-            if(isOutOfIndex && currentDate.equals(previousDate) && currentDate.equals(nextBlockDate)){
-                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.middle_rectangle));
-            }else if(isOutOfIndex && currentDate.equals(previousDate)){
-                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.upper_rectangle));
-            }else if(isOutOfIndex && currentDate.equals(nextBlockDate)){
-                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.lower_rectangle));
+        //upper, lower, middle, blue
+        if(convertView != null && position < this.classesLength-1) {
+            currentDate = getItem(position).getDate();
+            previousDate = (position-1 < 0)? null: getItem(position-1).getDate();
+            nextBlockDate = getItem(position + 1).getDate();
+
+            if (!currentDate.equals(previousDate) && currentDate.equals(nextBlockDate)) {
+                convertView.setBackground(shape.getShape("upper"));
+            } else if (!currentDate.equals(nextBlockDate) && currentDate.equals(previousDate)) {
+                convertView.setBackground(shape.getShape("lower"));
+            } else if (currentDate.equals(nextBlockDate)) {
+                convertView.setBackground(shape.getShape("middle"));
             }else{
-                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.blue_recentagle));
+                convertView.setBackground(shape.getShape("regular"));
             }
         }
 
     }
-
 
     public void setOnClick(@Nullable View convertView, TextView info, Schedule schedule, String dot){
         // on-click, the entire information is displayed.
@@ -95,22 +97,6 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         }
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
-    public void matchCurrentDate(@Nullable View convertView, TextView date){
-         //if the current matches the current position's date
-
-        if(convertView != null){
-            String currentDate = new SimpleDateFormat("dd MMM", Locale.getDefault()).format(new Date());
-            if(date.getText().toString().substring(0, date.getText().length() - 4).equals(currentDate)){
-                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.outlined_rectangle));
-            }else{
-                convertView.setBackground(getContext().getResources().getDrawable(R.drawable.blue_recentagle));
-            }
-
-        }
-
-    }
-
     public void setInfo(Schedule schedule, TextView info, String dot){
         if(schedule.getInfo().length() <= 36){
             info.setText(schedule.getInfo());
@@ -119,8 +105,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         }
     }
 
-
-    public void setLanguageText(Schedule schedule, TextView date, TextView course, TextView duration, TextView teacher, TextView room){
+    public void setLanguageBasedText(Schedule schedule, TextView date, TextView course, TextView duration, TextView teacher, TextView room){
         if(this.englishSetting){
             date.setText(String.format("%s %s", translation.getTranslated(schedule.getDate()), translation.getTranslated(schedule.getDay())));
             course.setText(translation.getTranslated(schedule.getCourse()));
@@ -133,7 +118,4 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         room.setText(schedule.getRoom());
 
     }
-
-
-
 }

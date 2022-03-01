@@ -20,40 +20,37 @@
         />
 
     <EditText
-        android:id="@+id/EditText12"
+        android:id="@+id/WebsiteInputInHome"
         android:layout_width="282dp"
         android:layout_height="63dp"
         android:layout_centerInParent="true"
         android:autofillHints="no"
         android:textColorHint="#000"
-        android:background="@drawable/equal_size_rectangle"
-        android:backgroundTint="#1cd82b"
+        android:background="@drawable/corner"
         android:hint="  https://schema.hkr.se..."
         android:inputType="textWebEmailAddress">
 
     </EditText>
 
     <Button
-        android:id="@+id/buttonf"
+        android:id="@+id/EnterButtonInHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/enter"
         android:layout_marginTop="20dp"
-        android:layout_below="@+id/EditText12"
+        android:layout_below="@+id/WebsiteInputInHome"
         android:layout_centerInParent="true"
-        android:backgroundTint="#1cd82b"
+        android:backgroundTint="#D56170"
         android:textColor="#000"/>
 
     <ProgressBar
         android:id="@+id/loader"
         style="?android:attr/progressBarStyle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="229dp"
+        android:layout_height="278dp"
         android:layout_centerInParent="true"
-        android:visibility="invisible"
-        android:layout_above="@+id/EditText12"
         android:layout_marginBottom="25dp"
-        android:indeterminateTint="#1cd82b"
-    />
+        android:indeterminateTint="#D56170"
+        android:visibility="invisible" />
 
 </RelativeLayout>

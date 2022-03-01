@@ -41,14 +41,18 @@ public class SettingsActivity extends AppCompatActivity {
 
         changeSchedule.setOnClickListener(view ->{
             data.removeDefaultScheduleLink();
-            intentToMain();
+            intentToHome();
 
         });
-
 
     }
 
     public void intentToMain(){
+        Intent out = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(out);
+    }
+
+    public void intentToHome(){
         Intent out = new Intent(getApplicationContext(), MainActivity.class);
         startActivity(out);
     }

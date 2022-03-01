@@ -13,7 +13,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="@font/habibi"
-        android:layout_marginEnd="60dp"
         android:text="@string/program"
         android:textSize="30sp" />
 
