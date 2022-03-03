@@ -31,5 +31,5 @@ Main page                  |  Settings
 
 - Need to find an alterative to Google Translate API because a single request takes atleast 3 seconds, and a traditional schedule has atleast 80 elements to be translated. Storing the translated text might solve the problem. 
 
-- Store the schedule objects as a backup.
+- ~~Store the schedule objects as a backup.~~
 
