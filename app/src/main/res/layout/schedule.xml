@@ -9,7 +9,7 @@
     android:id="@+id/ListViewLayout">
 
     <ListView
-        android:id="@+id/ListView"
+        android:id="@+id/ScheduleListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-31dp"

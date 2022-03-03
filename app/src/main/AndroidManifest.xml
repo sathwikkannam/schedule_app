@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Schedule_App">
         <activity
-            android:name=".ScheduleActivity"
+            android:name=".WelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
