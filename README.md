@@ -33,3 +33,5 @@ Main page                  |  Settings
 
 - ~~Store the schedule objects as a backup.~~
 
+- Add customizations
+
