@@ -16,5 +16,5 @@
     <string name="open">open_drawer</string>
     <string name="close">close_drawer</string>
     <string name="app_widget_description">Schedule Widget</string>
-    <string name="white_theme">White theme</string>
+    <string name="white_theme">Light mode</string>
 </resources>

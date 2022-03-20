@@ -32,10 +32,11 @@
 
         <Switch
             android:id="@+id/EnglishSwitchInSettings"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="150dp"
+            android:layout_marginStart="25dp"
             android:fontFamily="@font/habibi"
             android:textColor="@color/platinum"
             android:text="@string/english"
@@ -45,8 +46,9 @@
 
         <Switch
             android:id="@+id/ThemeSwitchInSettings"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="25dp"
             android:paddingTop="10dp"
             android:layout_centerHorizontal="true"
             android:layout_below="@+id/EnglishSwitchInSettings"
