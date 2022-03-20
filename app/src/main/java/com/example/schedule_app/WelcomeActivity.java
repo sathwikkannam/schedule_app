@@ -40,7 +40,7 @@ public class WelcomeActivity extends AppCompatActivity{
 
         //set background for welcome fragment.
         RelativeLayout fragmentLayout = findViewById(R.id.FragmentWelcome);
-        background.setFragmentBackground(fragmentLayout, R.drawable.upper_rectangle, R.color.light_black);
+        background.setRelativeLayoutBackground(fragmentLayout, R.drawable.upper_rectangle, R.color.light_black);
 
         // set background for the button
         Drawable rectangle = getResources().getDrawable(R.drawable.rectangle);

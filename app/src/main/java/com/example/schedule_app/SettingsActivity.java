@@ -37,7 +37,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //set background for the settings fragment.
         RelativeLayout fragmentLayout = findViewById(R.id.FragmentSettings);
-        background.setFragmentBackground(fragmentLayout, R.drawable.upper_rectangle, R.color.light_black);
+        background.setRelativeLayoutBackground(fragmentLayout, R.drawable.upper_rectangle, R.color.light_black);
 
         // set the switch to same setting as previous.
         englishSwitch.setChecked(data.getEnglishSetting());
