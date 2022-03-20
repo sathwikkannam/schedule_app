@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/object_layout"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:paddingTop="15dp"
+    android:paddingBottom="5dp"
+    android:background="@drawable/blue_rectangle">
+
+    <TextView
+        android:id="@+id/WidgetCourse"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/habibi"
+        android:text="@string/program"
+        android:textSize="30sp" />
+
+
+    <TextView
+        android:id="@+id/WidgetRoom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/WidgetCourse"
+        android:layout_marginEnd="100dp"
+        android:fontFamily="@font/ibm_plex_mono_semibold"
+        android:text="@string/room"
+        android:textSize="17sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/WidgetCourse"
+        android:layout_marginTop="7dp"
+        android:gravity="center"
+        android:id="@+id/WidgetDate"
+        android:textSize="17sp"
+        android:fontFamily="@font/aleo_bold"
+        android:text="@string/date"/>
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/WidgetCourse"
+        android:gravity="end"
+        android:text="@string/duration"
+        android:textSize="17sp"
+        android:id="@+id/WidgetDuration"
+        android:fontFamily="@font/alata"/>
+
+
+</RelativeLayout>

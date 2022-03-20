@@ -9,14 +9,11 @@ import java.util.ArrayList;
 public class Shape {
     private final ArrayList<Drawable> rectangles;
     private final Context context;
-    private final Color color;
 
     public Shape(Context context){
         this.context = context;
         this.rectangles =  new ArrayList<>();
-        this.color = new Color();
         addRectangles();
-
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -24,19 +21,19 @@ public class Shape {
         rectangles.add(this.context.getDrawable(R.drawable.upper_rectangle));
         rectangles.add(this.context.getDrawable(R.drawable.lower_rectangle));
         rectangles.add(this.context.getDrawable(R.drawable.middle_rectangle));
-        rectangles.add(this.context.getDrawable(R.drawable.blue_recentagle));
+        rectangles.add(this.context.getDrawable(R.drawable.blue_rectangle));
     }
 
     public void toRed(){
         for (Drawable rectangle: this.rectangles) {
-            rectangle.mutate().setTint(this.color.getRed());
+            rectangle.mutate().setTint(this.context.getResources().getColor(R.color.red));
         }
 
     }
 
-    public void toKindaBlue(){
+    public void toGrey(){
         for (Drawable rectangle: this.rectangles) {
-            rectangle.mutate().setTint(this.color.getKindaBlue());
+            rectangle.mutate().setTint(this.context.getResources().getColor(R.color.grey));
         }
     }
 

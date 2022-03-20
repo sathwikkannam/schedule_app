@@ -28,7 +28,7 @@ public class SettingsActivity extends AppCompatActivity {
         changeSchedule = findViewById(R.id.ChangeScheduleInSettings);
         englishSwitch = findViewById(R.id.EnglishSwitchInSettings);
         backToMainActivity = findViewById(R.id.BackInSettings);
-        data = Data.getInstance(getApplicationContext(), "UserData");
+        data = Data.getInstance(getApplicationContext());
 
         // set the switch to same setting as previous.
         englishSwitch.setChecked(data.getEnglishSetting());
@@ -47,7 +47,6 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(out);
 
         });
-
     }
 
 

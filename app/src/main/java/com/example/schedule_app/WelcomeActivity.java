@@ -19,21 +19,24 @@ public class WelcomeActivity extends AppCompatActivity{
     ExecutorService executor;
     ProgressBar bar;
     Data data;
+    String domain = "schema.hkr.se";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).hide();
-        setContentView(R.layout.enter_website);
+        setContentView(R.layout.welcome);
 
-        data = Data.getInstance(getApplicationContext(), "UserData");
+        data = Data.getInstance(getApplicationContext());
         bar =  findViewById(R.id.loader);
         executor = Executors.newSingleThreadExecutor();
         button = findViewById(R.id.EnterButtonInHome);
         websiteInput = findViewById(R.id.WebsiteInputInHome);
 
+        button.setBackgroundColor(getApplicationContext().getResources().getColor(R.color.platinum));
+
         button.setOnClickListener(view -> {
-            if (websiteInput.getText().toString().contains("schema.hkr.se")) {
+            if (websiteInput.getText().toString().contains(domain)) {
                 website = websiteInput.getText().toString();
                 setVisibility(website);
                 Intent toSchedule = new Intent(getApplicationContext(), MainActivity.class);

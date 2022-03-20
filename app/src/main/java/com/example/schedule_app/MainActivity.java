@@ -34,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getSupportActionBar()).hide();
 
-        data =  Data.getInstance(getApplicationContext(), "UserData");
+        data =  Data.getInstance(getApplicationContext());
         phoneDate = new Date("d MMM");
 
         if(data.getScheduleLink() == null || data.getScheduleLink().length() == 0){
@@ -45,22 +45,24 @@ public class MainActivity extends AppCompatActivity {
             setContentView(R.layout.schedule);
 
             //basically store the schedule once everyday, then it is offline for the rest of the day.
-            if(data.getLastStoredDate() != null && data.getLastStoredDate().equals(phoneDate.getTodayDate()) && data.getStoredSchedule() !=null) {
+            if(data.getLastStoredDate() != null && data.getLastStoredDate().equals(phoneDate.getTodayDate()) && data.getStoredSchedule() !=null){
                 classes = data.getStoredSchedule();
                 setAdapter(data.getEnglishSetting());
-                setUpFab();
+                fab = setUpFab();
             }else{
                 executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
                     sortElements(data.getScheduleLink());
                     runOnUiThread(() ->{
                         setAdapter(data.getEnglishSetting());
-                        setUpFab();
+                        fab = setUpFab();
                     });
                 });
 
             }
-            fab.setVisibility(View.VISIBLE);
+            if(fab != null){
+                fab.setVisibility(View.VISIBLE);
+            }
         }
 
     }
@@ -71,6 +73,9 @@ public class MainActivity extends AppCompatActivity {
         try {
             document = Jsoup.connect(url).get();
         } catch (IOException e) {
+            if(data.getStoredSchedule() != null){
+                classes = data.getStoredSchedule();
+            }
             e.printStackTrace();
         }
         for (Element elem : document.select("table.schemaTabell tr")) {
@@ -113,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void setUpFab(){
+    public FloatingActionButton setUpFab(){
         fab = findViewById(R.id.FabInSchedule);
         fab.bringToFront();
         fab.setVisibility(View.INVISIBLE);
@@ -121,6 +126,8 @@ public class MainActivity extends AppCompatActivity {
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent);
         });
+
+        return fab;
     }
 
 }

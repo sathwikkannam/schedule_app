@@ -5,10 +5,10 @@
     android:layout_height="match_parent">
 
     <ListView
-        android:id="@+id/Ni"
+        android:id="@+id/WidgetListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/object_list"
+        tools:listitem="@layout/widget_item"
         android:divider="@null"
         android:dividerHeight="0dp"/>
 </RelativeLayout>

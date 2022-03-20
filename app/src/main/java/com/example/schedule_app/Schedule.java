@@ -56,7 +56,6 @@ public class Schedule {
         return this.info;
     }
 
-
     public void setDay(String day) {
         this.day = day;
     }

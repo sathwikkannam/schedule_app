@@ -4,9 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_marginTop="10dp"
     tools:context=".MainActivity"
-    android:id="@+id/ListViewLayout">
+    android:id="@+id/ListViewLayout"
+    android:background="@color/black">
 
     <ListView
         android:id="@+id/ScheduleListView"
@@ -14,9 +14,10 @@
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-31dp"
         tools:layout_editor_absoluteY="-304dp"
-        tools:listitem="@layout/object_list"
+        tools:listitem="@layout/schedule_item"
         android:divider="@null"
         android:dividerHeight="0dp"
+        android:scrollbarSize="0dp"
         />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -29,7 +30,7 @@
         android:id="@+id/FabInSchedule"
         android:gravity="center"
         android:contentDescription="@string/settings"
-        app:backgroundTint="#D56170"
+        app:backgroundTint="@color/red"
         android:src="@drawable/ic_baseline_settings_24"
         app:fabSize="normal" />
 </RelativeLayout>

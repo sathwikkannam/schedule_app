@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class Data {
     private final SharedPreferences.Editor writer;
-    private final SharedPreferences getPreferencesReader;
+    private final SharedPreferences reader;
     private final String name;
     private final String defaultScheduleLinkKey;
     private final String defaultEnglishSettingKey;
@@ -23,22 +23,22 @@ public class Data {
 
 
     //singleton Data object. Big Brain alternative for passing Data object between activites.
-    private Data(Context context, String name) {
-        this.name =  name;
+    private Data(Context context) {
+        this.name =  "UserData";
         this.storedKey = "StoreDateKey";
         this.scheduleKey = "storedSchedule";
         this.defaultScheduleLinkKey = "ScheduleLink";
         this.defaultEnglishSettingKey = "EnglishSetting";
-        gson = new Gson();
+        this.gson = new Gson();
         SharedPreferences preferencesWriter = context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
-        this.getPreferencesReader = context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
+        this.reader = context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
         this.writer = preferencesWriter.edit();
 
     }
 
-    public static Data getInstance(Context context, String name){
+    public static Data getInstance(Context context){
         if(data == null){
-            data = new Data(context, name);
+            data = new Data(context);
         }
         return data;
     }
@@ -49,7 +49,7 @@ public class Data {
     }
 
     public String getScheduleLink(){
-        return this.getPreferencesReader.getString(this.defaultScheduleLinkKey, "");
+        return this.reader.getString(this.defaultScheduleLinkKey, "");
     }
 
     public void putScheduleLinkString(String value){
@@ -64,7 +64,7 @@ public class Data {
 
 
     public boolean getEnglishSetting(){
-        return this.getPreferencesReader.getBoolean(this.defaultEnglishSettingKey, false);
+        return this.reader.getBoolean(this.defaultEnglishSettingKey, false);
     }
 
     public void putEnglishSetting(Boolean setting){
@@ -76,7 +76,7 @@ public class Data {
     }
 
     public String getLastStoredDate(){
-        return this.getPreferencesReader.getString(this.storedKey, "");
+        return this.reader.getString(this.storedKey, "");
     }
 
     public void storeScheduleObjects(ArrayList<Schedule> classes){
@@ -85,7 +85,7 @@ public class Data {
 
     public ArrayList<Schedule> getStoredSchedule(){
         Type type = new TypeToken<ArrayList<Schedule>>() {}.getType();
-        return gson.fromJson(this.getPreferencesReader.getString(this.scheduleKey, ""), type);
+        return gson.fromJson(this.reader.getString(this.scheduleKey, ""), type);
     }
 
     public void removeStoredSchedule(){

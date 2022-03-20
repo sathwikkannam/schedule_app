@@ -16,12 +16,12 @@ import java.util.ArrayList;
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     private final Translation translation;
     private final boolean englishSetting;
-    private final int classesLength ;
+    private final int timetableLength ;
 
     public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable, boolean englishSetting) {
-        super(context, R.layout.object_list, timetable);
+        super(context, R.layout.schedule_item, timetable);
         this.englishSetting = englishSetting;
-        this.classesLength  = timetable.size();
+        this.timetableLength  = timetable.size();
         this.translation = new Translation();
     }
 
@@ -32,7 +32,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         Schedule schedule = getItem(position);
 
         if(convertView == null){
-            convertView =  LayoutInflater.from(getContext()).inflate(R.layout.object_list,parent,false);
+            convertView =  LayoutInflater.from(getContext()).inflate(R.layout.schedule_item,parent,false);
         }
 
         TextView date = convertView.findViewById(R.id.Date);
@@ -63,11 +63,11 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         if(blockDate.equals(date.getTodayDate())){
             shape.toRed();
         }if(blockDate.equals(date.getTomorrowDate())){
-            shape.toKindaBlue();
+            shape.toGrey();
         }
 
         //upper, lower, middle, blue
-        if(convertView != null && position < this.classesLength-1) {
+        if(convertView != null && position < this.timetableLength-1) {
             currentDate = getItem(position).getDate();
             previousDate = (position-1 < 0)? null: getItem(position-1).getDate();
             nextBlockDate = getItem(position + 1).getDate();
@@ -101,18 +101,17 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         if(schedule.getInfo().length() <= 36){
             info.setText(schedule.getInfo());
         }else{
-            info.setText(schedule.getInfo().substring(0, 36) + dot);
+            info.setText(String.format("%s%s", schedule.getInfo().substring(0,36), dot));
         }
     }
 
     public void setLanguageBasedText(Schedule schedule, TextView date, TextView course, TextView duration, TextView teacher, TextView room){
-        if(this.englishSetting){
-            date.setText(String.format("%s %s", translation.getTranslated(schedule.getDate()), translation.getTranslated(schedule.getDay())));
-            course.setText(translation.getTranslated(schedule.getCourse()));
-        }else{
-            date.setText(String.format("%s %s", schedule.getDate(), schedule.getDay()));
-            course.setText(schedule.getCourse());
-        }
+        String translatedDate = String.format("%s %s", translation.getTranslated(schedule.getDate()), translation.getTranslated(schedule.getDay()));
+        String normalDateText = String.format("%s %s", schedule.getDate(), schedule.getDay());
+        String translatedCourse = translation.getTranslated(schedule.getCourse());
+
+        date.setText((this.englishSetting)? translatedDate : normalDateText);
+        course.setText((this.englishSetting)? translatedCourse : schedule.getCourse());
         duration.setText(schedule.getDuration());
         teacher.setText(schedule.getTeacher());
         room.setText(schedule.getRoom());
