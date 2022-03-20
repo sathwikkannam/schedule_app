@@ -43,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
 
         }else{
             setContentView(R.layout.schedule);
-
             //basically store the schedule once everyday, then it is offline for the rest of the day.
             if(data.getLastStoredDate() != null && data.getLastStoredDate().equals(phoneDate.getTodayDate()) && data.getStoredSchedule() !=null){
                 classes = data.getStoredSchedule();

@@ -1,72 +1,87 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+
+<LinearLayout xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/black"
-    android:paddingStart="20dp"
-    android:paddingTop="20dp"
-    android:paddingEnd="20dp"
-    android:paddingBottom="20dp"
-    android:gravity="center">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/black">
 
-    <TextView
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:paddingStart="20dp"
+            android:paddingTop="20dp"
+            android:paddingEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fontFamily="@font/aleo"
+            android:text="@string/settings"
+            android:textSize="77sp"
+            android:textColor="@color/platinum"/>
+    </FrameLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fontFamily="@font/aleo"
-        android:text="@string/settings"
-        android:textSize="77sp"
-        android:textColor="@color/platinum"/>
+        android:layout_marginTop="50dp"
+        android:id="@+id/FragmentSettings">
 
-    <Switch
-        android:id="@+id/EnglishSwitchInSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:fontFamily="@font/habibi"
-        android:textColor="@color/platinum"
-        android:text="@string/english"
-        android:textSize="40sp"
-        android:thumbTint="@color/red"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        <Switch
+            android:id="@+id/EnglishSwitchInSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="150dp"
+            android:fontFamily="@font/habibi"
+            android:textColor="@color/platinum"
+            android:text="@string/english"
+            android:textSize="40sp"
+            android:thumbTint="@color/red"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <Switch
-        android:id="@+id/ThemeSwitchInSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="10dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/EnglishSwitchInSettings"
-        android:fontFamily="@font/habibi"
-        android:textColor="@color/platinum"
-        android:text="@string/white_theme"
-        android:textSize="40sp"
-        android:thumbTint="@color/red"
-        tools:ignore="UseSwitchCompatOrMaterialXml" />
+        <Switch
+            android:id="@+id/ThemeSwitchInSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/EnglishSwitchInSettings"
+            android:fontFamily="@font/habibi"
+            android:textColor="@color/platinum"
+            android:text="@string/white_theme"
+            android:textSize="40sp"
+            android:thumbTint="@color/red"
+            tools:ignore="UseSwitchCompatOrMaterialXml" />
 
-    <Button
-        android:id="@+id/ChangeScheduleInSettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/ThemeSwitchInSettings"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="15dp"
-        android:backgroundTint="@color/red"
-        android:textColor="@color/platinum"
-        android:text="@string/change_schedule" />
+        <Button
+            android:id="@+id/ChangeScheduleInSettings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ThemeSwitchInSettings"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/red"
+            android:textColor="@color/platinum"
+            android:text="@string/change_schedule" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
-        android:contentDescription="@string/backtomain"
-        android:id="@+id/BackInSettings"
-        android:src="@drawable/ic_back"
-        app:backgroundTint="@color/red"
-        app:fabSize="normal"
-        />
-</RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:layout_marginEnd="10dp"
+            android:contentDescription="@string/backtomain"
+            android:id="@+id/BackInSettings"
+            android:src="@drawable/ic_back"
+            app:backgroundTint="@color/red"
+            app:fabSize="normal"
+            />
+
+    </RelativeLayout>
+
+</LinearLayout>
