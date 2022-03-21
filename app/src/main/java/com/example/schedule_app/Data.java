@@ -19,6 +19,7 @@ public class Data {
     private static Data data = null;
     private final String scheduleKey;
     private final String storedKey;
+    private final String themekey;
     private final Gson gson;
 
 
@@ -29,6 +30,7 @@ public class Data {
         this.scheduleKey = "storedSchedule";
         this.defaultScheduleLinkKey = "ScheduleLink";
         this.defaultEnglishSettingKey = "EnglishSetting";
+        this.themekey = "theme";
         this.gson = new Gson();
         SharedPreferences preferencesWriter = context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
         this.reader = context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
@@ -91,6 +93,16 @@ public class Data {
     public void removeStoredSchedule(){
         this.writer.remove(this.scheduleKey).apply();
         this.writer.remove(this.storedKey).apply();
+    }
+
+    public void putTheme(boolean mode){
+        if(getTheme() != mode){
+            this.writer.putBoolean(this.themekey, mode).apply();
+        }
+    }
+
+    public boolean getTheme(){
+        return this.reader.getBoolean(this.themekey, false);
     }
 
 }

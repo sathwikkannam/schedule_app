@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -28,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     Data data;
     Date phoneDate;
     FloatingActionButton fab;
+    RelativeLayout scheduleBackground;
+    Background background;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +39,13 @@ public class MainActivity extends AppCompatActivity {
 
         data =  Data.getInstance(getApplicationContext());
         phoneDate = new Date("d MMM");
+        background =  new Background(getApplicationContext(), this);
+
+
+
 
         if(data.getScheduleLink() == null || data.getScheduleLink().length() == 0){
-            Intent out = new Intent(getApplicationContext(), WelcomeActivity.class);
-            startActivity(out);
+            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
 
         }else{
             setContentView(R.layout.schedule);
@@ -47,22 +53,26 @@ public class MainActivity extends AppCompatActivity {
             if(data.getLastStoredDate() != null && data.getLastStoredDate().equals(phoneDate.getTodayDate()) && data.getStoredSchedule() !=null){
                 classes = data.getStoredSchedule();
                 setAdapter(data.getEnglishSetting());
-                fab = setUpFab();
             }else{
                 executor = Executors.newSingleThreadExecutor();
                 executor.execute(() -> {
                     sortElements(data.getScheduleLink());
-                    runOnUiThread(() ->{
-                        setAdapter(data.getEnglishSetting());
-                        fab = setUpFab();
-                    });
+                    runOnUiThread(() -> setAdapter(data.getEnglishSetting()));
                 });
 
             }
-            if(fab != null){
-                fab.setVisibility(View.VISIBLE);
-            }
         }
+
+        Executors.newSingleThreadExecutor().execute(()->{
+            setUpFab();
+            scheduleBackground = findViewById(R.id.ListViewLayout);
+            runOnUiThread(()-> {
+                fab.setVisibility(View.VISIBLE);
+                background.setLightMode(scheduleBackground);
+            });
+
+        });
+
 
     }
 
@@ -117,7 +127,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public FloatingActionButton setUpFab(){
+    public void setUpFab(){
         fab = findViewById(R.id.FabInSchedule);
         fab.bringToFront();
         fab.setVisibility(View.INVISIBLE);
@@ -126,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        return fab;
     }
 
 }

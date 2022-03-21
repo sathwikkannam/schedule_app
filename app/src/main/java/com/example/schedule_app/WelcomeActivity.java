@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -23,6 +24,9 @@ public class WelcomeActivity extends AppCompatActivity{
     Data data;
     Background background;
     String domain = "schema.hkr.se";
+    LinearLayout welcomeHeader;
+    TextView headerText;
+    boolean isLight;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +35,23 @@ public class WelcomeActivity extends AppCompatActivity{
         setContentView(R.layout.welcome);
 
         //initialize variables
-        data = Data.getInstance(getApplicationContext());
         bar =  findViewById(R.id.loader);
-        executor = Executors.newSingleThreadExecutor();
         button = findViewById(R.id.EnterButtonInHome);
         websiteInput = findViewById(R.id.WebsiteInputInHome);
-        background = new Background(getApplicationContext());
+        welcomeHeader = findViewById(R.id.WelcomeHeader);
+        headerText = findViewById(R.id.WelcomeText);
+        background = new Background(getApplicationContext(), this);
+        data = Data.getInstance(getApplicationContext());
+        executor = Executors.newSingleThreadExecutor();
+        isLight = data.getTheme();
 
         //set background for welcome fragment.
         RelativeLayout fragmentLayout = findViewById(R.id.FragmentWelcome);
-        background.setRelativeLayoutBackground(fragmentLayout, R.drawable.upper_rectangle, R.color.light_black);
+        background.setLayoutBackground(fragmentLayout, R.drawable.upper_rectangle, R.color.light_black);
 
-        // set background for the button
-        Drawable rectangle = getResources().getDrawable(R.drawable.rectangle);
-        rectangle.mutate().setTint(getResources().getColor(R.color.red));
-        button.setBackground(rectangle);
+
+        //set Header color
+        background.setLightMode(welcomeHeader, headerText);
 
 
         //On click for the button
