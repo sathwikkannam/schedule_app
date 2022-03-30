@@ -1,6 +1,11 @@
-package com.example.schedule_app;
+package com.example.schedule_app.adapter;
 
 import android.widget.TextView;
+
+import com.example.schedule_app.Date;
+import com.example.schedule_app.Schedule;
+import com.example.schedule_app.Shape;
+import com.example.schedule_app.Translation;
 
 
 public class Adapter {
@@ -15,25 +20,27 @@ public class Adapter {
 
     public void setLanguageBasedText(Schedule schedule, TextView date, TextView course,
                                      TextView duration, TextView teacher, TextView room, TextView day){
+        
+        if(this.englishSetting){
+            course.setText(this.translation.getTranslated(schedule.getCourse()));
+        }else{
+            course.setText(schedule.getCourse());
+        }
 
         if(day == null){
             if(this.englishSetting){
                 date.setText(String.format("%s %s", this.translation.getTranslated(schedule.getFullDate()),
                                                     this.translation.getTranslated(schedule.getDay())));
-                course.setText(this.translation.getTranslated(schedule.getCourse()));
             }else{
-                date.setText(schedule.getDate());
-                course.setText(schedule.getCourse());
+                date.setText(String.format("%s %s", schedule.getFullDate(), schedule.getDay()));
             }
         }else{
             if(this.englishSetting){
                 day.setText(this.translation.getTranslated(schedule.getDay()));
                 date.setText(this.translation.getTranslated(schedule.getDate()));
-                course.setText(this.translation.getTranslated(schedule.getCourse()));
             }else{
                 day.setText(schedule.getDay());
                 date.setText(schedule.getDate());
-                course.setText(schedule.getCourse());
             }
 
         }

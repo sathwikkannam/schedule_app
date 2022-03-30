@@ -1,4 +1,4 @@
-package com.example.schedule_app;
+package com.example.schedule_app.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -10,6 +10,12 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+
+import com.example.schedule_app.Data;
+import com.example.schedule_app.Date;
+import com.example.schedule_app.R;
+import com.example.schedule_app.Schedule;
+import com.example.schedule_app.Shape;
 
 import java.util.ArrayList;
 

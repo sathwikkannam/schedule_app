@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
+import com.example.schedule_app.adapter.ScheduleAdapter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jsoup.Jsoup;
@@ -26,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ScheduleAdapter adapter;
     Data data;
     Date deviceDate;
-    FloatingActionButton fab, toTimeline;
+    FloatingActionButton toSettings, toTimeline;
     RelativeLayout scheduleBackground;
     Background background;
 
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(()->{
             setUpFab();
             scheduleBackground = findViewById(R.id.ListViewLayout);
-            runOnUiThread(()-> fab.setVisibility(View.VISIBLE));
+            runOnUiThread(()-> toSettings.setVisibility(View.VISIBLE));
 
         });
 
@@ -114,15 +115,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUpFab(){
-        fab = findViewById(R.id.FabInSchedule);
+        toSettings = findViewById(R.id.FabInSchedule);
         toTimeline = findViewById(R.id.FabInTimeLine);
-        fab.bringToFront();
-        fab.setVisibility(View.INVISIBLE);
-        fab.setOnClickListener(view -> {
-            Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
-            startActivity(intent);
-        });
-
+        toSettings.bringToFront();
+        toSettings.setVisibility(View.INVISIBLE);
+        toSettings.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),
+                                                                        SettingsActivity.class)));
         toTimeline.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(),
                                                                         TimeLineActivity.class)));
 
