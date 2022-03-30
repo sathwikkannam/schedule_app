@@ -14,17 +14,15 @@ import androidx.annotation.Nullable;
 import java.util.ArrayList;
 
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
-    private final Translation translation;
-    private final boolean englishSetting;
-    private final int timetableLength ;
+    private final int timetableLength;
+    private final Adapter adapter;
 
-    public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable, boolean englishSetting) {
+    public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable, Data data) {
         super(context, R.layout.schedule_item, timetable);
-        this.englishSetting = englishSetting;
-        this.timetableLength  = timetable.size();
-        this.translation = new Translation();
-    }
+        this.timetableLength = timetable.size();
+        adapter = new Adapter(data.getEnglishSetting());
 
+    }
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
@@ -42,7 +40,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        setLanguageBasedText(schedule, date, course, duration, teacher, room);
+        adapter.setLanguageBasedText(schedule, date, course, duration, teacher, room, null);
         setInfo(schedule, info, dot);
         setBackgrounds(position, convertView, date);
         setOnClick(convertView, info, schedule, dot);
@@ -68,9 +66,9 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 
         //upper, lower, middle, blue
         if(convertView != null && position < this.timetableLength-1) {
-            currentDate = getItem(position).getDate();
-            previousDate = (position-1 < 0)? null: getItem(position-1).getDate();
-            nextBlockDate = getItem(position + 1).getDate();
+            currentDate = getItem(position).getFullDate();
+            previousDate = (position-1 < 0)? null: getItem(position-1).getFullDate();
+            nextBlockDate = getItem(position + 1).getFullDate();
 
             if (!currentDate.equals(previousDate) && currentDate.equals(nextBlockDate)) {
                 convertView.setBackground(shape.getShape("upper"));
@@ -105,16 +103,4 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         }
     }
 
-    public void setLanguageBasedText(Schedule schedule, TextView date, TextView course, TextView duration, TextView teacher, TextView room){
-        String translatedDate = String.format("%s %s", translation.getTranslated(schedule.getDate()), translation.getTranslated(schedule.getDay()));
-        String normalDateText = String.format("%s %s", schedule.getDate(), schedule.getDay());
-        String translatedCourse = translation.getTranslated(schedule.getCourse());
-
-        date.setText((this.englishSetting)? translatedDate : normalDateText);
-        course.setText((this.englishSetting)? translatedCourse : schedule.getCourse());
-        duration.setText(schedule.getDuration());
-        teacher.setText(schedule.getTeacher());
-        room.setText(schedule.getRoom());
-
-    }
 }

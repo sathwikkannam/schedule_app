@@ -17,7 +17,6 @@ import org.jsoup.nodes.Element;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,10 +24,9 @@ public class MainActivity extends AppCompatActivity {
     ListView scheduleList;
     Document document;
     ScheduleAdapter adapter;
-    ExecutorService executor;
     Data data;
-    Date phoneDate;
-    FloatingActionButton fab;
+    Date deviceDate;
+    FloatingActionButton fab, toTimeline;
     RelativeLayout scheduleBackground;
     Background background;
 
@@ -38,10 +36,8 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         data =  Data.getInstance(getApplicationContext());
-        phoneDate = new Date("d MMM");
+        deviceDate = new Date("d MMM");
         background =  new Background(getApplicationContext(), this);
-
-
 
 
         if(data.getScheduleLink() == null || data.getScheduleLink().length() == 0){
@@ -50,14 +46,13 @@ public class MainActivity extends AppCompatActivity {
         }else{
             setContentView(R.layout.schedule);
             //basically store the schedule once everyday, then it is offline for the rest of the day.
-            if(data.getLastStoredDate() != null && data.getLastStoredDate().equals(phoneDate.getTodayDate()) && data.getStoredSchedule() !=null){
+            if(data.getLastStoredDate() != null && data.getLastStoredDate().equals(deviceDate.getTodayDate()) && data.getStoredSchedule() !=null){
                 classes = data.getStoredSchedule();
-                setAdapter(data.getEnglishSetting());
+                setAdapter();
             }else{
-                executor = Executors.newSingleThreadExecutor();
-                executor.execute(() -> {
+                Executors.newSingleThreadExecutor().execute(() -> {
                     sortElements(data.getScheduleLink());
-                    runOnUiThread(() -> setAdapter(data.getEnglishSetting()));
+                    runOnUiThread(this::setAdapter);
                 });
 
             }
@@ -66,10 +61,7 @@ public class MainActivity extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(()->{
             setUpFab();
             scheduleBackground = findViewById(R.id.ListViewLayout);
-            runOnUiThread(()-> {
-                fab.setVisibility(View.VISIBLE);
-                background.setLightMode(scheduleBackground);
-            });
+            runOnUiThread(()-> fab.setVisibility(View.VISIBLE));
 
         });
 
@@ -98,30 +90,24 @@ public class MainActivity extends AppCompatActivity {
             String info = elem.select("td.data.commonCell:nth-of-type(9)").text();
 
             if(time.length() >= 11){
-                classes.add(new Schedule(week, day, date, time, course, teacher, room, info));
-            }
-
-        }
-        // for Schedule objects, if there are multiple classes a day.
-        for (int i = 0; i < classes.size(); i++) {
-            if(classes.get(i).getDate().length() == 0 && classes.get(i).getDay().length() == 0){
-                for (int j = i-1; j >=0; j--) {
-                    if(classes.get(j).getDate().length() != 0 && classes.get(j).getDay().length() != 0){
-                        classes.get(i).setDay(classes.get(j).getDay());
-                        classes.get(i).setDate(classes.get(j).getDate());
-                        break;
-                    }
+                if(date.contains(" ")){
+                    String[] splitDate = date.split(" ");
+                    classes.add(new Schedule(week, day, splitDate[0], splitDate[1], time, course, teacher, room, info));
+                }else{
+                    classes.add(new Schedule(week, day, date, date, time, course, teacher, room, info));
                 }
-            }
-        }
 
-        data.putLastStoredDate(phoneDate.getTodayDate());
+            }
+
+        }
+        Schedule.sortDates(classes);
+        data.putLastStoredDate(deviceDate.getTodayDate());
         data.storeScheduleObjects(classes);
 
     }
 
-    public void setAdapter(Boolean englishSetting){
-        adapter = new ScheduleAdapter(this, classes, englishSetting);
+    public void setAdapter(){
+        adapter = new ScheduleAdapter(this, classes, data);
         scheduleList = findViewById(R.id.ScheduleListView);
         scheduleList.setAdapter(adapter);
 
@@ -129,12 +115,16 @@ public class MainActivity extends AppCompatActivity {
 
     public void setUpFab(){
         fab = findViewById(R.id.FabInSchedule);
+        toTimeline = findViewById(R.id.FabInTimeLine);
         fab.bringToFront();
         fab.setVisibility(View.INVISIBLE);
         fab.setOnClickListener(view -> {
             Intent intent = new Intent(getApplicationContext(), SettingsActivity.class);
             startActivity(intent);
         });
+
+        toTimeline.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(),
+                                                                        TimeLineActivity.class)));
 
     }
 

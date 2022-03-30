@@ -22,6 +22,7 @@ public class Shape {
         rectangles.add(this.context.getDrawable(R.drawable.lower_rectangle));
         rectangles.add(this.context.getDrawable(R.drawable.middle_rectangle));
         rectangles.add(this.context.getDrawable(R.drawable.blue_rectangle));
+        rectangles.add(this.context.getDrawable(R.drawable.timeline_rectangle));
     }
 
     public void toRed(){
@@ -48,6 +49,8 @@ public class Shape {
             sendShape = rectangles.get(2);
         }else if(name.contains("regular")){
             sendShape = rectangles.get(3);
+        }else if(name.contains("timeline")){
+            sendShape = rectangles.get(4);
         }
 
         return sendShape;

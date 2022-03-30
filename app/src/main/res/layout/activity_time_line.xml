@@ -9,12 +9,12 @@
     android:background="@color/black">
 
     <ListView
-        android:id="@+id/ScheduleListView"
+        android:id="@+id/TimeLineListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-31dp"
         tools:layout_editor_absoluteY="-304dp"
-        tools:listitem="@layout/schedule_item"
+        tools:listitem="@layout/time_line_item"
         android:divider="@null"
         android:dividerHeight="0dp"
         android:scrollbarSize="0dp" />
@@ -26,24 +26,10 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginEnd="10dp"
-        android:id="@+id/FabInSchedule"
-        android:gravity="center"
-        android:contentDescription="@string/settings"
-        app:backgroundTint="@color/red"
-        android:src="@drawable/ic_baseline_settings_24"
-        app:fabSize="normal" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/FabInSchedule"
-        android:layout_alignParentEnd="true"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
         android:id="@+id/FabInTimeLine"
         android:gravity="center"
         android:contentDescription="@string/settings"
         app:backgroundTint="@color/red"
-        android:src="@drawable/ic_baseline_settings_24"
+        android:src="@drawable/ic_baseline_calendar_view_day_24"
         app:fabSize="normal" />
 </RelativeLayout>

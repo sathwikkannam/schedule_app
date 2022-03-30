@@ -19,7 +19,7 @@ public class Data {
     private static Data data = null;
     private final String scheduleKey;
     private final String storedKey;
-    private final String themekey;
+    private final String themeKey;
     private final Gson gson;
 
 
@@ -30,7 +30,7 @@ public class Data {
         this.scheduleKey = "storedSchedule";
         this.defaultScheduleLinkKey = "ScheduleLink";
         this.defaultEnglishSettingKey = "EnglishSetting";
-        this.themekey = "theme";
+        this.themeKey = "theme";
         this.gson = new Gson();
         SharedPreferences preferencesWriter = context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
         this.reader = context.getSharedPreferences(this.name, Context.MODE_PRIVATE);
@@ -55,7 +55,7 @@ public class Data {
     }
 
     public void putScheduleLinkString(String value){
-        if(getScheduleLink() == null || getScheduleLink().length() == 0){
+        if(!getScheduleLink().equals(value)){
             this.writer.putString(this.defaultScheduleLinkKey, value).apply();
         }
     }
@@ -70,11 +70,15 @@ public class Data {
     }
 
     public void putEnglishSetting(Boolean setting){
-        this.writer.putBoolean(this.defaultEnglishSettingKey, setting).apply();
+        if(getEnglishSetting() != setting){
+            this.writer.putBoolean(this.defaultEnglishSettingKey, setting).apply();
+        }
     }
 
     public void putLastStoredDate(String todayDate){
-        this.writer.putString(this.storedKey, todayDate);
+        if(!getLastStoredDate().equals(todayDate)){
+            this.writer.putString(this.storedKey, todayDate);
+        }
     }
 
     public String getLastStoredDate(){
@@ -97,12 +101,12 @@ public class Data {
 
     public void putTheme(boolean mode){
         if(getTheme() != mode){
-            this.writer.putBoolean(this.themekey, mode).apply();
+            this.writer.putBoolean(this.themeKey, mode).apply();
         }
     }
 
     public boolean getTheme(){
-        return this.reader.getBoolean(this.themekey, false);
+        return this.reader.getBoolean(this.themeKey, false);
     }
 
 }

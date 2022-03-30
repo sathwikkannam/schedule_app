@@ -38,12 +38,6 @@ public class Background {
 
     }
 
-    public void setLightMode(ViewGroup layout){
-        if(this.isLight){
-            layout.setBackgroundColor(this.context.getResources().getColor(R.color.platinum));
-            setStatusBarColor();
-        }
-    }
 
     public void setStatusBarColor(){
         this.window.setStatusBarColor(this.context.getResources().getColor(R.color.platinum));
