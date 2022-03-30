@@ -31,6 +31,7 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Schedule schedule = getItem(position);
+        String[] testKeywords = {" omtentamen ", " test ", " Omtentamen "," Saltentamen ", " saltentamen "};
 
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
@@ -50,7 +51,12 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         setBackgrounds(position, scheduleLayout);
         setVisibility(position, dateLayout);
 
-        //onclick to new page with big text.
+        for (String key: testKeywords) {
+            if(getItem(position).getInfo().contains(key)){
+                course.setTextColor(getContext().getResources().getColor(R.color.tangerine));
+            }
+        }
+
         return convertView;
     }
 

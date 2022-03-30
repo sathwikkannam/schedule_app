@@ -20,7 +20,7 @@ public class Adapter {
 
     public void setLanguageBasedText(Schedule schedule, TextView date, TextView course,
                                      TextView duration, TextView teacher, TextView room, TextView day){
-        
+
         if(this.englishSetting){
             course.setText(this.translation.getTranslated(schedule.getCourse()));
         }else{
