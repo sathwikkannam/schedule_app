@@ -5,11 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 import com.example.schedule_app.adapter.ScheduleAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     ScheduleAdapter adapter;
     Data data;
     Date deviceDate;
-    FloatingActionButton toSettings, toTimeline;
+    Button toSettings, toTimeLine;
     RelativeLayout scheduleBackground;
     Background background;
 
@@ -39,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
         data =  Data.getInstance(getApplicationContext());
         deviceDate = new Date("d MMM");
         background =  new Background(getApplicationContext(), this);
-
 
         if(data.getScheduleLink() == null || data.getScheduleLink().length() == 0){
             startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
@@ -115,13 +114,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setUpFab(){
-        toSettings = findViewById(R.id.FabInSchedule);
-        toTimeline = findViewById(R.id.FabInTimeLine);
-        toSettings.bringToFront();
+        toSettings = findViewById(R.id.toSettings);
+        toTimeLine = findViewById(R.id.toTimeline);
         toSettings.setVisibility(View.INVISIBLE);
         toSettings.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),
                                                                         SettingsActivity.class)));
-        toTimeline.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(),
+        toTimeLine.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(),
                                                                         TimeLineActivity.class)));
 
     }

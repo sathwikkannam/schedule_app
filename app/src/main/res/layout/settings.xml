@@ -72,19 +72,34 @@
             android:textColor="@color/platinum"
             android:text="@string/change_schedule" />
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            android:gravity="center"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
-            android:contentDescription="@string/backtomain"
-            android:id="@+id/BackInSettings"
-            android:src="@drawable/ic_back"
-            app:backgroundTint="@color/red"
-            app:fabSize="normal"
-            />
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:background="@drawable/rectangle"
+            android:textAlignment="center">
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/schedule"
+                style="?android:attr/buttonBarButtonStyle"
+                android:id="@+id/toSchedule" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/timeline"
+                android:layout_marginStart="50dp"
+                android:id="@+id/toTimeline"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+        </LinearLayout>
 
     </RelativeLayout>
 

@@ -11,12 +11,10 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
-    FloatingActionButton backToMainActivity;
     Button changeSchedule;
     Data data;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
@@ -28,6 +26,7 @@ public class SettingsActivity extends AppCompatActivity {
     LinearLayout settingsHeader;
     TextView headerText;
     RelativeLayout innerSettingsLayout;
+    Button toTimeLine, toSchedule;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +37,11 @@ public class SettingsActivity extends AppCompatActivity {
         //initialize variables
         changeSchedule = findViewById(R.id.ChangeScheduleInSettings);
         englishSwitch = findViewById(R.id.EnglishSwitchInSettings);
-        backToMainActivity = findViewById(R.id.BackInSettings);
         mode = findViewById(R.id.ThemeSwitchInSettings);
         settingsHeader = findViewById(R.id.SettingsHeader);
         headerText = findViewById(R.id.SettingsText);
+        toTimeLine = findViewById(R.id.toTimeline);
+        toSchedule = findViewById(R.id.toSchedule);
         innerSettingsLayout = findViewById(R.id.FragmentSettings);
         data = Data.getInstance(getApplicationContext());
         background = new Background(getApplicationContext(), this);
@@ -56,13 +56,6 @@ public class SettingsActivity extends AppCompatActivity {
         englishSwitch.setChecked(data.getEnglishSetting());
         mode.setChecked(isLight);
 
-        // set onclick for button to return to schedule activity.
-        backToMainActivity.setOnClickListener(view ->{
-            data.putEnglishSetting(englishSwitch.isChecked());
-            data.putTheme(mode.isChecked());
-            out = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(out);
-        });
 
         //set onclick for button to return to welcome activity.
         changeSchedule.setOnClickListener(view ->{
@@ -72,6 +65,11 @@ public class SettingsActivity extends AppCompatActivity {
             startActivity(out);
 
         });
+
+        toSchedule.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),
+                MainActivity.class)));
+        toTimeLine.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(),
+                TimeLineActivity.class)));
 
 
 

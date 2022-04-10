@@ -31,8 +31,6 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         Schedule schedule = getItem(position);
-        String[] testKeywords = {" omtentamen ", " test ", " Omtentamen "," Saltentamen ", " saltentamen "};
-
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(
                     R.layout.time_line_item, parent, false);
@@ -50,12 +48,6 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         this.adapter.setLanguageBasedText(schedule, date, course, duration, teacher, room, day);
         setBackgrounds(position, scheduleLayout);
         setVisibility(position, dateLayout);
-
-        for (String key: testKeywords) {
-            if(getItem(position).getInfo().contains(key)){
-                course.setTextColor(getContext().getResources().getColor(R.color.tangerine));
-            }
-        }
 
         return convertView;
     }

@@ -7,4 +7,5 @@ public class Key {
     public String SCHEDULE_WEB_LINK = "ScheduleLink";
     public String ENGLISH_SETTING = "EnglishSetting";
     public String THEME_KEY = "theme";
+    public String ON_OPEN_VIEW = "openLayout";
 }

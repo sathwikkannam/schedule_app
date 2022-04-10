@@ -4,10 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.schedule_app.adapter.TimeLineAdapter;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.Objects;
 
@@ -15,7 +15,7 @@ public class TimeLineActivity extends AppCompatActivity {
     Data data;
     TimeLineAdapter timeLineAdapter;
     ListView timeLineView;
-    FloatingActionButton fab;
+    Button toSchedule, toSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,12 +24,14 @@ public class TimeLineActivity extends AppCompatActivity {
         setContentView(R.layout.activity_time_line);
 
         data = Data.getInstance(getApplicationContext());
-        fab = findViewById(R.id.FabInTimeLine);
+        toSchedule = findViewById(R.id.toScheduleView);
+        toSettings = findViewById(R.id.toSettings);
 
         timeLineAdapter = new TimeLineAdapter(this, data.getStoredSchedule(), data);
         timeLineView = findViewById(R.id.TimeLineListView);
         timeLineView.setAdapter(timeLineAdapter);
 
-        fab.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+        toSchedule.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+        toSettings.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(), SettingsActivity.class)));
     }
 }
