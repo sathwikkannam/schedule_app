@@ -1,6 +1,7 @@
 package com.example.schedule_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -8,22 +9,20 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 
 
 import java.util.Objects;
 
 public class SettingsActivity extends AppCompatActivity {
-    Button changeSchedule;
+    RelativeLayout changeSchedule;
     Data data;
     @SuppressLint("UseSwitchCompatOrMaterialCode")
-    Switch englishSwitch;
-    Switch mode;
+    SwitchCompat englishSwitch, mode;
     Intent out;
     Background background;
     boolean isLight;
-    LinearLayout settingsHeader;
+    LinearLayout settingsHeader, navBar;
     TextView headerText;
     RelativeLayout innerSettingsLayout;
     Button toTimeLine, toSchedule;
@@ -35,7 +34,7 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.settings);
 
         //initialize variables
-        changeSchedule = findViewById(R.id.ChangeScheduleInSettings);
+        changeSchedule = findViewById(R.id.ChangeSchedule);
         englishSwitch = findViewById(R.id.EnglishSwitchInSettings);
         mode = findViewById(R.id.ThemeSwitchInSettings);
         settingsHeader = findViewById(R.id.SettingsHeader);
@@ -45,13 +44,14 @@ public class SettingsActivity extends AppCompatActivity {
         innerSettingsLayout = findViewById(R.id.FragmentSettings);
         data = Data.getInstance(getApplicationContext());
         background = new Background(getApplicationContext(), this);
+        navBar = findViewById(R.id.NavBar);
         isLight = data.getTheme();
 
 
         //set background for the settings fragment.
         background.setLayoutBackground(innerSettingsLayout, R.drawable.upper_rectangle, R.color.light_black);
-
         background.setLightMode(settingsHeader, headerText);
+        background.setAnimation(navBar, R.anim.navbar);
 
         // set the switch to same setting as previous.
         englishSwitch.setChecked(data.getEnglishSetting());

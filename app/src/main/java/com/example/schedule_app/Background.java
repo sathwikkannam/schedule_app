@@ -6,6 +6,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 
@@ -41,6 +43,11 @@ public class Background {
 
     public void setStatusBarColor(){
         this.window.setStatusBarColor(this.context.getResources().getColor(R.color.platinum));
+    }
+
+    public void setAnimation(ViewGroup layout, int anim){
+        Animation animation = AnimationUtils.loadAnimation(this.context, anim);
+        layout.startAnimation(animation);
     }
 
 }

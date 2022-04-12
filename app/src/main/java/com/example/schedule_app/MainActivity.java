@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
@@ -30,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     Button toSettings, toTimeLine;
     RelativeLayout scheduleBackground;
     Background background;
+    LinearLayout navBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,8 @@ public class MainActivity extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(()->{
             setUpFab();
             scheduleBackground = findViewById(R.id.ListViewLayout);
+            navBar = findViewById(R.id.NavBar);
+            background.setAnimation(navBar, R.anim.navbar);
             runOnUiThread(()-> toSettings.setVisibility(View.VISIBLE));
 
         });

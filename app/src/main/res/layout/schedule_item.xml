@@ -14,7 +14,9 @@
         android:layout_height="wrap_content"
         android:fontFamily="@font/habibi"
         android:text="@string/program"
-        android:textSize="30sp" />
+        android:textSize="27sp"
+        android:textStyle="bold"
+        android:textColor="@color/platinum"/>
 
     <TextView
         android:layout_width="match_parent"
@@ -34,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/Teacher"
         android:layout_marginEnd="100dp"
-        android:fontFamily="@font/ibm_plex_mono_semibold"
+        android:fontFamily="@font/aleo"
         android:text="@string/room"
         android:textSize="17sp" />
 
@@ -46,7 +48,7 @@
         android:gravity="end"
         android:id="@+id/Date"
         android:textSize="17sp"
-        android:fontFamily="@font/aleo_bold"
+        android:fontFamily="@font/aleo"
         android:text="@string/date"/>
 
 
@@ -58,7 +60,7 @@
         android:text="@string/duration"
         android:textSize="17sp"
         android:id="@+id/Duration"
-        android:fontFamily="@font/alata"/>
+        android:fontFamily="@font/aleo"/>
 
     <TextView
         android:layout_width="match_parent"
