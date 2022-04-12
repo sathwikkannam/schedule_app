@@ -47,6 +47,7 @@ public class SettingsActivity extends AppCompatActivity {
         background = new Background(getApplicationContext(), this);
         isLight = data.getTheme();
 
+
         //set background for the settings fragment.
         background.setLayoutBackground(innerSettingsLayout, R.drawable.upper_rectangle, R.color.light_black);
 
@@ -66,15 +67,22 @@ public class SettingsActivity extends AppCompatActivity {
 
         });
 
-        toSchedule.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),
-                MainActivity.class)));
-        toTimeLine.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(),
-                TimeLineActivity.class)));
+        toSchedule.setOnClickListener(view -> {
+            storeSettings();
+            startActivity(new Intent(getApplicationContext(), MainActivity.class));
+        });
 
-
-
+        toTimeLine.setOnClickListener(view -> {
+            storeSettings();
+            startActivity(new Intent(getApplicationContext(), TimeLineActivity.class));
+        });
 
     }
 
+
+    public void storeSettings(){
+        data.putEnglishSetting(englishSwitch.isChecked());
+        data.putTheme(mode.isChecked());
+    }
 
 }
