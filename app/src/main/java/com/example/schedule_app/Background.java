@@ -11,7 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 
-public class Background {
+public class Background{
     private final Context context;
     private final Window window;
     private final boolean isLight;

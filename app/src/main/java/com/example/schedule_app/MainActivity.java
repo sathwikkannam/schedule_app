@@ -54,7 +54,11 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 Executors.newSingleThreadExecutor().execute(() -> {
                     sortElements(data.getScheduleLink());
-                    runOnUiThread(this::setAdapter);
+                    runOnUiThread(() ->{
+                        setAdapter();
+                        navBar = findViewById(R.id.NavBar);
+                        background.setAnimation(navBar, R.anim.navbar);
+                    });
                 });
 
             }
@@ -63,8 +67,6 @@ public class MainActivity extends AppCompatActivity {
         Executors.newSingleThreadExecutor().execute(()->{
             setUpFab();
             scheduleBackground = findViewById(R.id.ListViewLayout);
-            navBar = findViewById(R.id.NavBar);
-            background.setAnimation(navBar, R.anim.navbar);
             runOnUiThread(()-> toSettings.setVisibility(View.VISIBLE));
 
         });

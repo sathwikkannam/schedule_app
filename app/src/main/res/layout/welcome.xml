@@ -20,7 +20,7 @@
             android:paddingEnd="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:fontFamily="@font/aleo"
+            android:fontFamily="sans-serif"
             android:text="@string/app_name"
             android:textSize="77sp"
             android:textColor="@color/platinum"/>

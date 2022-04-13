@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 
 import com.example.schedule_app.adapter.TimeLineAdapter;
@@ -17,7 +16,6 @@ public class TimeLineActivity extends AppCompatActivity {
     TimeLineAdapter timeLineAdapter;
     ListView timeLineView;
     Button toSchedule, toSettings;
-    LinearLayout navBar;
     Background background;
 
     @Override
@@ -29,9 +27,7 @@ public class TimeLineActivity extends AppCompatActivity {
         data = Data.getInstance(getApplicationContext());
         toSchedule = findViewById(R.id.toScheduleView);
         toSettings = findViewById(R.id.toSettings);
-        navBar = findViewById(R.id.NavBar);
         background = new Background(getApplicationContext(), this);
-        background.setAnimation(navBar, R.anim.navbar);
 
 
         timeLineAdapter = new TimeLineAdapter(this, data.getStoredSchedule(), data);

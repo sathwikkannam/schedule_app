@@ -22,7 +22,7 @@ public class SettingsActivity extends AppCompatActivity {
     Intent out;
     Background background;
     boolean isLight;
-    LinearLayout settingsHeader, navBar;
+    LinearLayout settingsHeader;
     TextView headerText;
     RelativeLayout innerSettingsLayout;
     Button toTimeLine, toSchedule;
@@ -44,14 +44,12 @@ public class SettingsActivity extends AppCompatActivity {
         innerSettingsLayout = findViewById(R.id.FragmentSettings);
         data = Data.getInstance(getApplicationContext());
         background = new Background(getApplicationContext(), this);
-        navBar = findViewById(R.id.NavBar);
         isLight = data.getTheme();
 
 
         //set background for the settings fragment.
         background.setLayoutBackground(innerSettingsLayout, R.drawable.upper_rectangle, R.color.light_black);
         background.setLightMode(settingsHeader, headerText);
-        background.setAnimation(navBar, R.anim.navbar);
 
         // set the switch to same setting as previous.
         englishSwitch.setChecked(data.getEnglishSetting());
