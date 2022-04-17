@@ -21,12 +21,12 @@ import java.util.ArrayList;
 
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     private final int timetableLength;
-    private final Adapter adapter;
+    private final setText setText;
 
     public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable, Data data) {
         super(context, R.layout.schedule_item, timetable);
         this.timetableLength = timetable.size();
-        adapter = new Adapter(data.getEnglishSetting());
+        setText = new setText(data.getEnglishSetting());
 
     }
     @NonNull
@@ -46,7 +46,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        adapter.setLanguageBasedText(schedule, date, course, duration, teacher, room, null);
+        setText.setLanguageBasedText(schedule, date, course, duration, teacher, room, null);
         setInfo(schedule, info, dot);
         setBackgrounds(position, convertView, date);
         setOnClick(convertView, info, schedule, dot);

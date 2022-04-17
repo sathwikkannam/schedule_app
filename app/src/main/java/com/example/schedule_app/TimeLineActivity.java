@@ -29,7 +29,6 @@ public class TimeLineActivity extends AppCompatActivity {
         toSettings = findViewById(R.id.toSettings);
         background = new Background(getApplicationContext(), this);
 
-
         timeLineAdapter = new TimeLineAdapter(this, data.getStoredSchedule(), data);
         timeLineView = findViewById(R.id.TimeLineListView);
         timeLineView.setAdapter(timeLineAdapter);

@@ -42,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         deviceDate = new Date("d MMM");
         background =  new Background(getApplicationContext(), this);
 
-        if(data.getScheduleLink() == null || data.getScheduleLink().length() == 0){
+        if(data.getScheduleURL() == null || data.getScheduleURL().length() == 0){
             startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
 
         }else{
@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 setAdapter();
             }else{
                 Executors.newSingleThreadExecutor().execute(() -> {
-                    sortElements(data.getScheduleLink());
+                    sortElements(data.getScheduleURL());
                     runOnUiThread(() ->{
                         setAdapter();
                         navBar = findViewById(R.id.NavBar);
@@ -122,7 +122,6 @@ public class MainActivity extends AppCompatActivity {
     public void setUpFab(){
         toSettings = findViewById(R.id.toSettings);
         toTimeLine = findViewById(R.id.toTimeline);
-        toSettings.setVisibility(View.INVISIBLE);
         toSettings.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(),
                                                                         SettingsActivity.class)));
         toTimeLine.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(),

@@ -3,7 +3,6 @@ package com.example.schedule_app;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -70,7 +69,7 @@ public class WelcomeActivity extends AppCompatActivity{
     // set everything in the welcome screen invisible except the progressbar
     public void setVisibility(String website){
         executor.execute(() -> runOnUiThread(() ->{
-            data.putScheduleLinkString(website);
+            data.putScheduleURL(website);
             bar = findViewById(R.id.loader);
             button.setVisibility(android.view.View.INVISIBLE);
             websiteInput.setVisibility(android.view.View.INVISIBLE);

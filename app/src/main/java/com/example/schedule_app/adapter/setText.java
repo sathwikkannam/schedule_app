@@ -8,11 +8,11 @@ import com.example.schedule_app.Shape;
 import com.example.schedule_app.Translation;
 
 
-public class Adapter {
+public class setText {
     private final Translation translation;
     private final boolean englishSetting;
 
-    public Adapter(Boolean englishSetting){
+    public setText(Boolean englishSetting){
         this.englishSetting = englishSetting;
         this.translation =  new Translation();
 
@@ -20,12 +20,6 @@ public class Adapter {
 
     public void setLanguageBasedText(Schedule schedule, TextView date, TextView course,
                                      TextView duration, TextView teacher, TextView room, TextView day){
-
-        if(this.englishSetting){
-            course.setText(this.translation.getTranslated(schedule.getCourse()));
-        }else{
-            course.setText(schedule.getCourse());
-        }
 
         if(day == null){
             if(this.englishSetting){
@@ -45,20 +39,26 @@ public class Adapter {
 
         }
 
-        duration.setText(schedule.getDuration());
-        teacher.setText(schedule.getTeacher());
-        room.setText(schedule.getRoom());
-
-    }
-
-    public void matchDate(Shape shape, Date date, String blockDate){
-        if(blockDate.equals(date.getTodayDate())){
-            shape.toRed();
-        }if(blockDate.equals(date.getTomorrowDate())){
-            shape.toGrey();
+        if(schedule.getRoom().length() == 0){
+            room.setText("-");
+        }else{
+            room.setText(schedule.getRoom());
         }
+
+        if(schedule.getDuration().length() == 0){
+            duration.setText("-");
+        }else{
+            duration.setText(schedule.getDuration());
+        }
+
+        if(schedule.getTeacher().length() == 0){
+            teacher.setText("-");
+        }else{
+            teacher.setText(schedule.getTeacher());
+        }
+
+        course.setText(schedule.getCourse());
+
     }
-
-
 
 }

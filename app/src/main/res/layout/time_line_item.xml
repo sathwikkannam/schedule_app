@@ -77,57 +77,84 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:id="@+id/TimeLineSchedule"
-            android:background="@drawable/rectangle">
+            android:background="@drawable/rectangle"
+            android:backgroundTint="@color/darkGrey">
 
             <TextView
-                android:id="@+id/Course"
+                android:id="@+id/Duration"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/habibi"
-                android:text="@string/program"
-                android:layout_marginTop="7dp"
-                android:layout_marginStart="10dp"
-                android:textSize="20sp" />
+                android:text="@string/duration"
+                android:layout_marginTop="15dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginBottom="5dp"
+                android:textSize="17sp"
+                android:textColor="@color/Yellow"/>
+
+            <View
+                android:layout_width="10dp"
+                android:layout_height="15dp"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="20dp"
+                android:backgroundTint="@color/platinum"
+                android:id="@+id/status"
+                android:background="@drawable/circle"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_below="@+id/Course"
+                android:background="@color/lightGrey"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="12dp"
+                android:id="@+id/Line"/>
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/Course"
+                android:layout_below="@+id/Line"
                 android:text="@string/teacher"
                 android:gravity="end"
-                android:layout_marginTop="7dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/aleo"
+                android:layout_marginEnd="20dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/habibi"
                 android:textSize="17sp"
-                android:id="@+id/Teacher"/>
+                android:id="@+id/Teacher"
+                android:textColor="@color/platinum"/>
 
 
             <TextView
                 android:id="@+id/Room"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/Teacher"
-                android:layout_marginBottom="7dp"
+                android:layout_below="@+id/Line"
+                android:layout_marginBottom="15dp"
                 android:layout_marginEnd="100dp"
-                android:layout_marginStart="10dp"
-                android:fontFamily="@font/ibm_plex_mono_semibold"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:fontFamily="@font/habibi"
                 android:text="@string/room"
-                android:textSize="17sp" />
+                android:textSize="17sp"
+                android:textColor="@color/platinum"/>
 
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/Course"
+                android:layout_below="@+id/Duration"
                 android:gravity="start"
-                android:layout_marginStart="10dp"
-                android:text="@string/duration"
-                android:textSize="17sp"
-                android:id="@+id/Duration"
-                android:layout_marginEnd="10dp"
-                android:fontFamily="@font/alata"
-                android:textStyle="bold"/>
+                android:layout_marginStart="20dp"
+                android:text="@string/program"
+                android:textSize="20sp"
+                android:id="@+id/Course"
+                android:layout_marginEnd="20dp"
+                android:fontFamily="@font/habibi"
+                android:textColor="@color/platinum"/>
 
         </RelativeLayout>
 

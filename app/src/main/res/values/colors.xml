@@ -17,4 +17,7 @@
     <color name="platinum">#E7E7E7</color>
     <color name="light_black">#131414</color>
     <color name="tangerine">#fe8f5d</color>
+    <color name="darkGrey">#2e3030</color>
+    <color name="lightGrey">#545454</color>
+    <color name="Yellow">#CC9F38</color>
 </resources>

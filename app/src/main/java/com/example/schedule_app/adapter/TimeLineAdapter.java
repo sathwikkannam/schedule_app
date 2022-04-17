@@ -14,16 +14,15 @@ import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
 import com.example.schedule_app.R;
 import com.example.schedule_app.Schedule;
-import com.example.schedule_app.Shape;
 
 import java.util.ArrayList;
 
 public class TimeLineAdapter extends ArrayAdapter<Schedule> {
-    private final Adapter adapter;
+    private final setText setText;
 
     public TimeLineAdapter(@NonNull Context context, ArrayList<Schedule> timetable, Data data) {
         super(context, R.layout.time_line_item, timetable);
-        this.adapter = new Adapter(data.getEnglishSetting());
+        this.setText = new setText(data.getEnglishSetting());
 
     }
 
@@ -42,26 +41,14 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         TextView course = convertView.findViewById(R.id.Course);
         TextView teacher = convertView.findViewById(R.id.Teacher);
         TextView room = convertView.findViewById(R.id.Room);
-        ViewGroup scheduleLayout = convertView.findViewById(R.id.TimeLineSchedule);
         ViewGroup dateLayout = convertView.findViewById(R.id.TimeLineDate);
+        View view = convertView.findViewById(R.id.status);
 
-        this.adapter.setLanguageBasedText(schedule, date, course, duration, teacher, room, day);
-        setBackgrounds(position, scheduleLayout);
+        this.setText.setLanguageBasedText(schedule, date, course, duration, teacher, room, day);
+        setBackground(view, position);
         setVisibility(position, dateLayout);
 
         return convertView;
-    }
-
-
-    public void setBackgrounds(int position, ViewGroup layout){
-        Shape shape = new Shape(getContext());
-        Date date = new Date("d MMM");
-        String blockDate = getItem(position).getFullDate();
-
-        this.adapter.matchDate(shape, date, blockDate);
-
-        layout.setBackground(shape.getShape("timeline"));
-
     }
 
 
@@ -74,6 +61,18 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         }else{
             dateLayout.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void setBackground(View view, int position){
+        Date date = new Date("dd MMM");
+        if(getItem(position).getFullDate().equals(date.getTodayDate())){
+            view.setVisibility(View.VISIBLE);
+            view.getBackground().mutate().setTint(getContext().getResources().getColor(R.color.Yellow));
+        }else{
+            view.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override

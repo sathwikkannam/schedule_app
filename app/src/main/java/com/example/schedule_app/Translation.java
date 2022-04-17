@@ -19,12 +19,6 @@ public class Translation {
         translate.put("Lör", "Sat");
         translate.put("Sön", "Sun");
         translate.put("Maj", "May");
-        translate.put("Programmering för inbyggda system", "Programming for embedded systems");
-        translate.put("Databasteknik", "Database technology");
-        translate.put("Objektorienterad programmering", "Object-oriented programming");
-        translate.put("Analys och algebra", "Analysis and algebra");
-        translate.put("Matematik för ingenjörer", "Mathematics for engineers");
-
     }
 
     public String getTranslated(String key){

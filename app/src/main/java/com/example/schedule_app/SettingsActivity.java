@@ -58,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         //set onclick for button to return to welcome activity.
         changeSchedule.setOnClickListener(view ->{
-            data.removeDefaultScheduleLink();
+            data.removeScheduleURL();
             data.removeStoredSchedule();
             out = new Intent(getApplicationContext(), WelcomeActivity.class);
             startActivity(out);

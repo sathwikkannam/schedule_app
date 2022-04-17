@@ -18,7 +18,7 @@ public class Data extends Key {
     private final Gson gson;
 
 
-    //singleton Data object. Big Brain alternative for passing Data object between activites.
+    //singleton Data object. Big Brain alternative for passing Data object between activities.
     private Data(Context context) {
         this.gson = new Gson();
         SharedPreferences preferencesWriter = context.getSharedPreferences(DATA_NAME, Context.MODE_PRIVATE);
@@ -39,17 +39,17 @@ public class Data extends Key {
         return DATA_NAME;
     }
 
-    public String getScheduleLink(){
+    public String getScheduleURL(){
         return this.reader.getString(SCHEDULE_WEB_LINK, "");
     }
 
-    public void putScheduleLinkString(String value){
-        if(!getScheduleLink().equals(value)){
+    public void putScheduleURL(String value){
+        if(!getScheduleURL().equals(value)){
             this.writer.putString(SCHEDULE_WEB_LINK, value).apply();
         }
     }
 
-    public void removeDefaultScheduleLink(){
+    public void removeScheduleURL(){
         this.writer.remove(SCHEDULE_WEB_LINK).apply();
     }
 
