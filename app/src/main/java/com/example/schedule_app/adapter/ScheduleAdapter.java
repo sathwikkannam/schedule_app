@@ -46,7 +46,8 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        setText.setLanguageBasedText(schedule, date, course, duration, teacher, room, null);
+        setText.setLanguageBasedText(schedule, date, course, duration,
+                            null, null, teacher, room, null);
         setInfo(schedule, info, dot);
         setBackgrounds(position, convertView, date);
         setOnClick(convertView, info, schedule, dot);

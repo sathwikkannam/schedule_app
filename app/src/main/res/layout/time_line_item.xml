@@ -51,7 +51,7 @@
                     android:layout_height="match_parent"
                     android:text="Sun"
                     android:layout_marginTop="5dp"
-                    android:fontFamily="sans-serif"
+                    android:fontFamily="@font/habibi"
                     android:textSize="20sp"
                     android:textStyle="bold"
                     android:textColor="@color/platinum"
@@ -80,86 +80,124 @@
             android:background="@drawable/rectangle"
             android:backgroundTint="@color/darkGrey">
 
-            <TextView
-                android:id="@+id/Duration"
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/habibi"
-                android:text="@string/duration"
-                android:layout_marginTop="15dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginBottom="5dp"
-                android:textSize="17sp"
-                android:textColor="@color/Yellow"/>
-
-            <View
-                android:layout_width="10dp"
-                android:layout_height="15dp"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="20dp"
-                android:backgroundTint="@color/platinum"
-                android:id="@+id/status"
-                android:background="@drawable/circle"/>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_below="@+id/Course"
-                android:background="@color/lightGrey"
                 android:layout_marginStart="20dp"
                 android:layout_marginEnd="20dp"
                 android:layout_marginTop="12dp"
-                android:id="@+id/Line"/>
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Line"
-                android:text="@string/teacher"
-                android:gravity="end"
-                android:layout_marginEnd="20dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/habibi"
-                android:textSize="17sp"
-                android:id="@+id/Teacher"
-                android:textColor="@color/platinum"/>
-
-
-            <TextView
-                android:id="@+id/Room"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Line"
                 android:layout_marginBottom="15dp"
-                android:layout_marginEnd="100dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:fontFamily="@font/habibi"
-                android:text="@string/room"
-                android:textSize="17sp"
-                android:textColor="@color/platinum"/>
+                tools:ignore="UselessParent">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TimeDetails">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/starttime"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:id="@+id/StartTime"
+                        android:textColor="@color/black"
+                        android:background="@drawable/rectangle"
+                        android:backgroundTint="@color/Yellow"
+                        android:textStyle="bold"
+                        android:textSize="17sp" />
+
+                    <View
+                        android:layout_width="25dp"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginLeft="7dp"
+                        android:layout_marginRight="7dp"
+                        android:layout_toEndOf="@+id/StartTime"
+                        android:background="@color/Yellow"
+                        android:id="@+id/line1"
+                        android:layout_centerInParent="true"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/endtime"
+                        android:textColor="@color/black"
+                        android:layout_gravity="end"
+                        android:id="@+id/EndTime"
+                        android:layout_toEndOf="@+id/line1"
+                        android:paddingLeft="5dp"
+                        android:paddingRight="5dp"
+                        android:background="@drawable/rectangle"
+                        android:backgroundTint="@color/Yellow"
+                        android:textStyle="bold"
+                        android:textSize="17sp"/>
 
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/Duration"
-                android:gravity="start"
-                android:layout_marginStart="20dp"
-                android:text="@string/program"
-                android:textSize="20sp"
-                android:id="@+id/Course"
-                android:layout_marginEnd="20dp"
-                android:fontFamily="@font/habibi"
-                android:textColor="@color/platinum"/>
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="15dp"
+                        android:layout_alignParentEnd="true"
+                        android:backgroundTint="@color/platinum"
+                        android:id="@+id/status"
+                        android:background="@drawable/circle"/>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/TimeDetails"
+                    android:gravity="start"
+                    android:text="@string/program"
+                    android:textSize="20sp"
+                    android:id="@+id/Course"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/habibi"
+                    android:textColor="@color/platinum"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@+id/Course"
+                    android:background="@color/lightGrey"
+                    android:layout_marginTop="12dp"
+                    android:id="@+id/Line"/>
+
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Line"
+                    android:text="@string/teacher"
+                    android:gravity="end"
+                    android:layout_marginTop="12dp"
+                    android:layout_marginStart="90dp"
+                    android:fontFamily="@font/habibi"
+                    android:textSize="17sp"
+                    android:id="@+id/Teacher"
+                    android:textColor="@color/platinum"/>
+
+
+                <TextView
+                    android:id="@+id/Room"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Line"
+                    android:layout_marginEnd="100dp"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/habibi"
+                    android:text="@string/room"
+                    android:textSize="17sp"
+                    android:textColor="@color/platinum"/>
+
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
 
     </LinearLayout>
-
 
 
 </LinearLayout>

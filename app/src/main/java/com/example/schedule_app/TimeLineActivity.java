@@ -21,8 +21,8 @@ public class TimeLineActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Objects.requireNonNull(getSupportActionBar()).hide();
         setContentView(R.layout.activity_time_line);
+        Objects.requireNonNull(getSupportActionBar()).hide();
 
         data = Data.getInstance(getApplicationContext());
         toSchedule = findViewById(R.id.toScheduleView);

@@ -2,10 +2,10 @@ package com.example.schedule_app.adapter;
 
 import android.widget.TextView;
 
-import com.example.schedule_app.Date;
 import com.example.schedule_app.Schedule;
-import com.example.schedule_app.Shape;
 import com.example.schedule_app.Translation;
+
+import java.util.StringTokenizer;
 
 
 public class setText {
@@ -19,7 +19,8 @@ public class setText {
     }
 
     public void setLanguageBasedText(Schedule schedule, TextView date, TextView course,
-                                     TextView duration, TextView teacher, TextView room, TextView day){
+                                     TextView duration, TextView startTime, TextView endTime, TextView teacher,
+                                     TextView room, TextView day){
 
         if(day == null){
             if(this.englishSetting){
@@ -39,16 +40,24 @@ public class setText {
 
         }
 
+        if(duration == null){
+            if(schedule.getDuration() != null){
+                StringTokenizer f = new StringTokenizer(schedule.getDuration(), "-");
+                startTime.setText(f.nextToken());
+                endTime.setText(f.nextToken());
+            }else{
+                startTime.setText("N/A");
+                endTime.setText("N/A");
+            }
+
+        }else if(day == null && startTime == null && endTime == null){
+            duration.setText(schedule.getDuration());
+        }
+
         if(schedule.getRoom().length() == 0){
             room.setText("-");
         }else{
             room.setText(schedule.getRoom());
-        }
-
-        if(schedule.getDuration().length() == 0){
-            duration.setText("-");
-        }else{
-            duration.setText(schedule.getDuration());
         }
 
         if(schedule.getTeacher().length() == 0){

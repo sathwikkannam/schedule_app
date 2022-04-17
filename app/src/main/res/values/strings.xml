@@ -22,4 +22,6 @@
     <string name="timeline">Timeline</string>
     <string name="schedule">Schedule</string>
     <string name="todo">TODO</string>
+    <string name="endtime">EndTime</string>
+    <string name="starttime">StartTime</string>
 </resources>

@@ -15,6 +15,8 @@ import com.example.schedule_app.Date;
 import com.example.schedule_app.R;
 import com.example.schedule_app.Schedule;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 public class TimeLineAdapter extends ArrayAdapter<Schedule> {
@@ -37,16 +39,19 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
 
         TextView date = convertView.findViewById(R.id.Date);
         TextView day = convertView.findViewById(R.id.Day);
-        TextView duration = convertView.findViewById(R.id.Duration);
+        TextView startTime = convertView.findViewById(R.id.StartTime);
+        TextView endTime = convertView.findViewById(R.id.EndTime);
         TextView course = convertView.findViewById(R.id.Course);
         TextView teacher = convertView.findViewById(R.id.Teacher);
         TextView room = convertView.findViewById(R.id.Room);
+        View status = convertView.findViewById(R.id.status);
         ViewGroup dateLayout = convertView.findViewById(R.id.TimeLineDate);
-        View view = convertView.findViewById(R.id.status);
 
-        this.setText.setLanguageBasedText(schedule, date, course, duration, teacher, room, day);
-        setBackground(view, position);
+        this.setText.setLanguageBasedText(schedule, date, course, null,
+                                            startTime, endTime, teacher, room, day);
+        setBackground(status, position);
         setVisibility(position, dateLayout);
+
 
         return convertView;
     }
@@ -63,17 +68,16 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         }
     }
 
-    public void setBackground(View view, int position){
+    public void setBackground(View view, int position) {
         Date date = new Date("dd MMM");
-        if(getItem(position).getFullDate().equals(date.getTodayDate())){
+        if (getItem(position).getFullDate().equals(date.getTodayDate())) {
             view.setVisibility(View.VISIBLE);
             view.getBackground().mutate().setTint(getContext().getResources().getColor(R.color.Yellow));
-        }else{
+        } else {
             view.setVisibility(View.GONE);
         }
-
-
     }
+
 
     @Override
     public void notifyDataSetChanged() {
