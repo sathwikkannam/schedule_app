@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center"
-        android:id="@+id/NavBar"
+        android:id="@+id/TimeLineNavBar"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10dp"
         android:layout_marginLeft="25dp"
@@ -47,7 +47,6 @@
             android:id="@+id/toSettings"
             style="?android:attr/buttonBarButtonStyle"
             android:textAlignment="center"/>
-
 
     </LinearLayout>
 

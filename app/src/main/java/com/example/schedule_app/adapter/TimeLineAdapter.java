@@ -1,6 +1,8 @@
 package com.example.schedule_app.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,13 +11,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+import androidx.core.content.res.ResourcesCompat;
 
 import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
 import com.example.schedule_app.R;
 import com.example.schedule_app.Schedule;
 
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -44,14 +47,17 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         TextView course = convertView.findViewById(R.id.Course);
         TextView teacher = convertView.findViewById(R.id.Teacher);
         TextView room = convertView.findViewById(R.id.Room);
-        View status = convertView.findViewById(R.id.status);
-        ViewGroup dateLayout = convertView.findViewById(R.id.TimeLineDate);
+        TextView info = convertView.findViewById(R.id.Details);
+
+        info.setVisibility(View.GONE);
+        info.setText(schedule.getInfo());
 
         this.setText.setLanguageBasedText(schedule, date, course, null,
                                             startTime, endTime, teacher, room, day);
-        setBackground(status, position);
-        setVisibility(position, dateLayout);
 
+        setVisibility(position, convertView.findViewById(R.id.TimeLineDate));
+        setDateBackground(day, date, schedule);
+        onClick(convertView.findViewById(R.id.TimeLineSchedule), info);
 
         return convertView;
     }
@@ -68,20 +74,40 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         }
     }
 
-    public void setBackground(View view, int position) {
-        Date date = new Date("dd MMM");
-        if (getItem(position).getFullDate().equals(date.getTodayDate())) {
-            view.setVisibility(View.VISIBLE);
-            view.getBackground().mutate().setTint(getContext().getResources().getColor(R.color.Yellow));
-        } else {
-            view.setVisibility(View.GONE);
-        }
-    }
-
-
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
+    }
+
+
+    public void setDateBackground(TextView day, TextView dateView, Schedule schedule){
+        Drawable circle = getContext().getResources().getDrawable(R.drawable.circle);
+        circle.mutate().setTint(getContext().getResources().getColor(R.color.Yellow));
+        int e = (int) (getContext().getResources().getDisplayMetrics().density * 17);
+
+        if(schedule.getFullDate().equals(new Date().getTodayDate())){
+            day.setTextColor(getContext().getResources().getColor(R.color.Yellow));
+            dateView.setBackground(circle);
+            dateView.setTextColor(getContext().getResources().getColor(R.color.black));
+            dateView.setPadding(0, e, 0,e);
+        }else{
+            day.setTextColor(getContext().getResources().getColor(R.color.platinum));
+            dateView.setTextColor(getContext().getResources().getColor(R.color.platinum));
+            dateView.setBackground(null);
+            dateView.setPadding(0, 0, 0,0);
+        }
+
+    }
+
+    public void onClick(ViewGroup e, TextView info){
+
+        e.setOnClickListener(View -> {
+            if (info.getVisibility() == android.view.View.GONE) {
+                info.setVisibility(android.view.View.VISIBLE);
+            }else if(info.getVisibility() == android.view.View.VISIBLE){
+                info.setVisibility(android.view.View.GONE);
+            }
+        });
     }
 
 }

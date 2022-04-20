@@ -34,7 +34,7 @@
         android:orientation="horizontal">
 
         <FrameLayout
-            android:layout_width="40dp"
+            android:layout_width="45dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:id="@+id/test">
@@ -49,7 +49,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:text="Sun"
+                    android:text="Wed"
                     android:layout_marginTop="5dp"
                     android:fontFamily="@font/habibi"
                     android:textSize="20sp"
@@ -133,15 +133,6 @@
                         android:textStyle="bold"
                         android:textSize="17sp"/>
 
-
-                    <View
-                        android:layout_width="10dp"
-                        android:layout_height="15dp"
-                        android:layout_alignParentEnd="true"
-                        android:backgroundTint="@color/platinum"
-                        android:id="@+id/status"
-                        android:background="@drawable/circle"/>
-
                 </RelativeLayout>
 
                 <TextView
@@ -192,6 +183,24 @@
                     android:textColor="@color/platinum"/>
 
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/Room"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:paddingRight="10dp"
+                    android:paddingBottom="10dp"
+                    android:paddingTop="10dp"
+                    android:id="@+id/Details"
+                    android:background="@drawable/rectangle"
+                    android:backgroundTint="@color/Yellow"
+                    android:text="Info"
+                    android:layout_centerHorizontal="true"
+                    android:textAlignment="center"
+                    android:fontFamily="sans-serif-medium"
+                    android:textSize="20sp"
+                    android:textColor="@color/black"/>
             </RelativeLayout>
 
 

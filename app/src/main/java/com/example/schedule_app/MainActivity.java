@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         data =  Data.getInstance(getApplicationContext());
-        deviceDate = new Date("d MMM");
+        deviceDate = new Date();
         background =  new Background(getApplicationContext(), this);
 
         if(data.getScheduleURL() == null || data.getScheduleURL().length() == 0){

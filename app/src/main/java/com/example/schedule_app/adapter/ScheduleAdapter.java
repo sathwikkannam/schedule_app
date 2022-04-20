@@ -1,6 +1,5 @@
 package com.example.schedule_app.adapter;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -48,6 +47,7 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 
         setText.setLanguageBasedText(schedule, date, course, duration,
                             null, null, teacher, room, null);
+
         setInfo(schedule, info, dot);
         setBackgrounds(position, convertView, date);
         setOnClick(convertView, info, schedule, dot);
@@ -56,12 +56,11 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     }
 
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     public void setBackgrounds(int position, @Nullable View convertView, TextView list_date){
         String currentDate;
         String previousDate;
         String nextBlockDate;
-        Date date = new Date("d MMM");
+        Date date = new Date();
         Shape shape = new Shape(getContext());
         String blockDate = list_date.getText().toString().substring(0, list_date.getText().length()-4);
 

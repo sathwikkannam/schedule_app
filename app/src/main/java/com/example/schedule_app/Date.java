@@ -9,8 +9,8 @@ public class Date {
     private final DateFormat dateFormat;
     private final Calendar calendar;
 
-    public Date(String pattern){
-        this.dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+    public Date(){
+        this.dateFormat = new SimpleDateFormat("d MMM", Locale.getDefault());
         this.calendar = Calendar.getInstance();
     }
 
