@@ -48,8 +48,6 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        //setText.setLanguageBasedText(schedule, date, course, duration,null, null, teacher, room, null);
-
         setText(schedule, date, duration, info);
         CommonTextView.setText(schedule, course, teacher, room);
         setInfo(schedule, info);
@@ -117,15 +115,13 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     private void setText(Schedule schedule, TextView date, TextView duration, TextView info){
 
         if(Data.getInstance(getContext()).getEnglishSetting()){
-            Executors.newSingleThreadExecutor().execute(() ->{
-                this.firebaseTranslator.getTranslator().translate(schedule.getInfo()).addOnSuccessListener(s ->{
-                    if(s.length() <= 36){
-                        info.setText(s);
-                    }else{
-                        info.setText(String.format("%s %s", s.substring(0,36), "..."));
-                    }
-                });
-            });
+            Executors.newSingleThreadExecutor().execute(() -> this.firebaseTranslator.getTranslator().translate(schedule.getInfo()).addOnSuccessListener(s ->{
+                if(s.length() <= 36){
+                    info.setText(s);
+                }else{
+                    info.setText(String.format("%s %s", s.substring(0,36), "..."));
+                }
+            }));
 
             date.setText(String.format("%s %s", schedule.getFullDate(), DaysTranslation.getInstance().getTranslated(schedule.getDay())));
 
