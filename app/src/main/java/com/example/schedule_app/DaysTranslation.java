@@ -1,16 +1,26 @@
 package com.example.schedule_app;
 
 import java.util.Hashtable;
-public class Translation {
-    private final Hashtable<String, String> translate;
 
-    public Translation(){
+public class DaysTranslation {
+    private final Hashtable<String, String> translate;
+    private static DaysTranslation daysTranslation = null;
+
+    private DaysTranslation(){
         this.translate = new Hashtable<>();
         translateElements();
 
     }
 
-    public void translateElements(){
+    public static DaysTranslation getInstance(){
+        if(daysTranslation == null){
+            daysTranslation = new DaysTranslation();
+        }
+
+        return daysTranslation;
+    }
+
+    private void translateElements(){
         translate.put("Mån", "Mon");
         translate.put("Tis", "Tue");
         translate.put("Ons", "Wed");

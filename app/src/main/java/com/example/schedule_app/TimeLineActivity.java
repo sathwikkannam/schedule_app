@@ -17,6 +17,7 @@ public class TimeLineActivity extends AppCompatActivity {
     ListView timeLineView;
     Button toSchedule, toSettings;
     Background background;
+    Date deviceDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,15 +26,36 @@ public class TimeLineActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
 
         data = Data.getInstance(getApplicationContext());
+        deviceDate = new Date();
         toSchedule = findViewById(R.id.toScheduleView);
         toSettings = findViewById(R.id.toSettings);
+        timeLineView = findViewById(R.id.TimeLineListView);
         background = new Background(getApplicationContext(), this);
 
-        timeLineAdapter = new TimeLineAdapter(this, data.getStoredSchedule(), data);
-        timeLineView = findViewById(R.id.TimeLineListView);
+        if(data.getLastStoredDate() != null && !data.getLastStoredDate().equals(deviceDate.getTodayDate()) && data.getStoredSchedule() !=null){
+            data.storeScheduleObjects(WebScraper.scrape(data.getScheduleURL()));
+            data.putLastStoredDate(deviceDate.getTodayDate());
+        }
+
+        timeLineAdapter = new TimeLineAdapter(this, data.getStoredSchedule());
         timeLineView.setAdapter(timeLineAdapter);
 
-        toSchedule.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(), MainActivity.class)));
+        toSchedule.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("Navigate", true)));
         toSettings.setOnClickListener(View -> startActivity(new Intent(getApplicationContext(), SettingsActivity.class)));
+
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        timeLineAdapter.getTranslator().closeTranslationModel();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        data.onOpenLayout(this.getClass().getSimpleName());
+        timeLineAdapter.getTranslator().closeTranslationModel();
     }
 }

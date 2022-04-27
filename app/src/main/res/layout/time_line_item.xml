@@ -9,29 +9,26 @@
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <RelativeLayout
+
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="7dp"
-        android:textAlignment="center"
-        android:layout_marginStart="60dp"
+        android:layout_marginStart="65dp"
         android:id="@+id/WeekAndMonth"
-        android:visibility="gone">
+        android:text="Week 9, April 16 - 20"
+        android:textColor="@color/platinum"
+        android:fontFamily="sans-serif"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/week"
-            android:id="@+id/WeekAndMonthView"
-            android:textStyle="bold"
-/>
-
-    </RelativeLayout>
+    <!--TODO: change marginTop to 10 if view above is visible-->
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_marginTop="5dp">
 
         <FrameLayout
             android:layout_width="45dp"
@@ -195,7 +192,7 @@
                     android:id="@+id/Details"
                     android:background="@drawable/rectangle"
                     android:backgroundTint="@color/Yellow"
-                    android:text="Info"
+                    android:text="@string/info"
                     android:layout_centerHorizontal="true"
                     android:textAlignment="center"
                     android:fontFamily="sans-serif-medium"

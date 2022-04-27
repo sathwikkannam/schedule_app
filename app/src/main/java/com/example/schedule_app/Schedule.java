@@ -1,6 +1,5 @@
 package com.example.schedule_app;
 
-
 import java.util.ArrayList;
 
 public class Schedule {
@@ -11,9 +10,8 @@ public class Schedule {
     private final String course;
     private final String teacher;
     private final String room;
-    private final String info;
+    private String info;
     private String month;
-
 
     public Schedule(String week, String day, String date, String month, String duration,
                     String course, String teacher, String room, String info) {
@@ -76,24 +74,27 @@ public class Schedule {
         return this.month;
     }
 
+    public void setInfo(String info){
+        this.info = info;
+    }
+
     public String getFullDate(){
         return String.format("%s %s", getDate(), getMonth());
     }
 
     public static void sortDates(ArrayList<Schedule> classes){
-        for (int i = 0; i < classes.size(); i++) {
-            if(classes.get(i).getFullDate().length() == 1 && classes.get(i).getDay().length() == 0){
-                for (int j = i-1; j >=0; j--) {
+        classes.forEach(lecture ->{
+            if(lecture.getFullDate().length() == 1 && lecture.getDay().length() == 0){
+                for (int j = classes.indexOf(lecture)-1; j >=0; j--) {
                     if(classes.get(j).getFullDate().length() != 1 && classes.get(j).getDay().length() != 0){
-                        classes.get(i).setDay(classes.get(j).getDay());
-                        classes.get(i).setDate(classes.get(j).getDate());
-                        classes.get(i).setMonth(classes.get(j).getMonth());
+                        lecture.setDay(classes.get(j).getDay());
+                        lecture.setDate(classes.get(j).getDate());
+                        lecture.setMonth(classes.get(j).getMonth());
                         break;
                     }
                 }
             }
-
-        }
+        });
     }
 
 }

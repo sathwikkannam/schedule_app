@@ -17,7 +17,7 @@ public class Shape {
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
-    public void addRectangles(){
+    private void addRectangles(){
         rectangles.add(this.context.getDrawable(R.drawable.upper_rectangle));
         rectangles.add(this.context.getDrawable(R.drawable.lower_rectangle));
         rectangles.add(this.context.getDrawable(R.drawable.middle_rectangle));
@@ -25,16 +25,12 @@ public class Shape {
     }
 
     public void toRed(){
-        for (Drawable rectangle: this.rectangles) {
-            rectangle.mutate().setTint(this.context.getResources().getColor(R.color.red));
-        }
+        this.rectangles.forEach(rectangle -> rectangle.mutate().setTint(this.context.getColor(R.color.red)));
 
     }
 
     public void toGrey(){
-        for (Drawable rectangle: this.rectangles) {
-            rectangle.mutate().setTint(this.context.getResources().getColor(R.color.grey));
-        }
+        this.rectangles.forEach(rectangle -> rectangle.mutate().setTint(this.context.getColor(R.color.grey)));
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")

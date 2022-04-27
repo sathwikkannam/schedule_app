@@ -12,9 +12,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Schedule_App">
         <activity
-            android:name=".ClassDetails"
-            android:exported="false" />
-        <activity
             android:name=".TimeLineActivity"
             android:exported="false" />
         <activity

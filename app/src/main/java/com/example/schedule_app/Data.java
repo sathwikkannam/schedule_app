@@ -95,4 +95,16 @@ public class Data extends Key {
         return this.reader.getBoolean(THEME_KEY, false);
     }
 
+    public void onOpenLayout(String layout){
+        if(!getOnOpenLayout().equals(layout)){
+            this.writer.putString(ON_OPEN_VIEW,layout).apply();
+        }
+
+    }
+
+    public String getOnOpenLayout(){
+        return this.reader.getString(ON_OPEN_VIEW, "");
+    }
+
+
 }

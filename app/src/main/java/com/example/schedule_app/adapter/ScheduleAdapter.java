@@ -12,26 +12,29 @@ import androidx.annotation.Nullable;
 
 import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
+import com.example.schedule_app.FirebaseTranslator;
 import com.example.schedule_app.R;
 import com.example.schedule_app.Schedule;
 import com.example.schedule_app.Shape;
+import com.example.schedule_app.DaysTranslation;
+import com.google.mlkit.nl.translate.TranslateLanguage;
 
 import java.util.ArrayList;
+import java.util.concurrent.Executors;
 
 public class ScheduleAdapter extends ArrayAdapter<Schedule> {
     private final int timetableLength;
-    private final setText setText;
+    private final FirebaseTranslator firebaseTranslator;
 
-    public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable, Data data) {
+    public ScheduleAdapter(@NonNull Context context, ArrayList<Schedule> timetable) {
         super(context, R.layout.schedule_item, timetable);
         this.timetableLength = timetable.size();
-        setText = new setText(data.getEnglishSetting());
+        this.firebaseTranslator = FirebaseTranslator.getInstance(TranslateLanguage.SWEDISH, TranslateLanguage.ENGLISH);
 
     }
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
-        final String dot = "...";
         Schedule schedule = getItem(position);
 
         if(convertView == null){
@@ -45,18 +48,19 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Info);
         TextView room = convertView.findViewById(R.id.Room);
 
-        setText.setLanguageBasedText(schedule, date, course, duration,
-                            null, null, teacher, room, null);
+        //setText.setLanguageBasedText(schedule, date, course, duration,null, null, teacher, room, null);
 
-        setInfo(schedule, info, dot);
+        setText(schedule, date, duration, info);
+        CommonTextView.setText(schedule, course, teacher, room);
+        setInfo(schedule, info);
         setBackgrounds(position, convertView, date);
-        setOnClick(convertView, info, schedule, dot);
+        setOnClick(convertView, info, schedule);
 
         return convertView;
     }
 
 
-    public void setBackgrounds(int position, @Nullable View convertView, TextView list_date){
+    private void setBackgrounds(int position, @Nullable View convertView, TextView list_date){
         String currentDate;
         String previousDate;
         String nextBlockDate;
@@ -89,11 +93,11 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
 
     }
 
-    public void setOnClick(@Nullable View convertView, TextView info, Schedule schedule, String dot){
+    private void setOnClick(@Nullable View convertView, TextView info, Schedule schedule){
         // on-click, the entire information is displayed.
         if(convertView != null){
             convertView.setOnClickListener(View ->{
-                if(info.getText().toString().substring(info.getText().length()-3).equals(dot)) {
+                if(info.getText().toString().substring(info.getText().length()-3).equals("...")) {
                     info.setText(schedule.getInfo());
                 }
             });
@@ -101,12 +105,37 @@ public class ScheduleAdapter extends ArrayAdapter<Schedule> {
         }
     }
 
-    public void setInfo(Schedule schedule, TextView info, String dot){
+    private void setInfo(Schedule schedule, TextView info){
         if(schedule.getInfo().length() <= 36){
             info.setText(schedule.getInfo());
         }else{
-            info.setText(String.format("%s%s", schedule.getInfo().substring(0,36), dot));
+            info.setText(String.format("%s%s", schedule.getInfo().substring(0,36), "..."));
         }
+    }
+
+
+    private void setText(Schedule schedule, TextView date, TextView duration, TextView info){
+
+        if(Data.getInstance(getContext()).getEnglishSetting()){
+            Executors.newSingleThreadExecutor().execute(() ->{
+                this.firebaseTranslator.getTranslator().translate(schedule.getInfo()).addOnSuccessListener(s ->{
+                    if(s.length() <= 36){
+                        info.setText(s);
+                    }else{
+                        info.setText(String.format("%s %s", s.substring(0,36), "..."));
+                    }
+                });
+            });
+
+            date.setText(String.format("%s %s", schedule.getFullDate(), DaysTranslation.getInstance().getTranslated(schedule.getDay())));
+
+        }else{
+            date.setText(String.format("%s %s", schedule.getFullDate(), schedule.getDay()));
+            info.setText(schedule.getInfo());
+        }
+
+        duration.setText(schedule.getDuration());
+
     }
 
 }
