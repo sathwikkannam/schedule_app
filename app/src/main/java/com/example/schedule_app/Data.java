@@ -107,4 +107,8 @@ public class Data extends Key {
     }
 
 
+    public void removeOnOpenLayout(){
+        this.writer.remove(ON_OPEN_VIEW).apply();
+    }
+
 }
