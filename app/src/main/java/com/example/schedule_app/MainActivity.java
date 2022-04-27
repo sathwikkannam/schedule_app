@@ -33,45 +33,38 @@ public class MainActivity extends AppCompatActivity {
         //initialize variables.
         data =  Data.getInstance(getApplicationContext());
 
-        //if first time, intent to welcome activity.
         if(data.getScheduleURL() == null || data.getScheduleURL().length() == 0){
-            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
-
+            startActivity(new Intent(this, WelcomeActivity.class));
+        }else if(data.getOnOpenLayout().equals(TimeLineActivity.class.getSimpleName()) && !getIntent().getBooleanExtra("Navigate", false)){
+            startActivity(new Intent(this, TimeLineActivity.class));
         }else{
-            if(data.getOnOpenLayout().equals(TimeLineActivity.class.getSimpleName()) && !getIntent().getBooleanExtra("Navigate", false)){
-                startActivity(new Intent(this, TimeLineActivity.class));
-            }else {
-                //initialize variables.
-                deviceDate = new Date();
-                background =  new Background(getApplicationContext(), this);
+            //initialize variables.
+            deviceDate = new Date();
+            background =  new Background(getApplicationContext(), this);
 
-                setContentView(R.layout.schedule);
-                //basically store the schedule once everyday, then it is offline for the rest of the day.
-                if(data.getLastStoredDate() != null && data.getLastStoredDate().equals(deviceDate.getTodayDate()) && data.getStoredSchedule() !=null){
-                    classes = data.getStoredSchedule();
-                    setAdapter();
-                }else{
-                    //first time of the day.
-                    Executors.newSingleThreadExecutor().execute(() -> {
-                        classes = WebScraper.scrape(data.getScheduleURL());
-                        Schedule.sortDates(classes);
-                        data.putLastStoredDate(deviceDate.getTodayDate());
-                        data.storeScheduleObjects(classes);
+            setContentView(R.layout.schedule);
+            //basically store the schedule once everyday, then it is offline for the rest of the day.
+            if(data.getLastStoredDate() != null && data.getLastStoredDate().equals(deviceDate.getTodayDate()) && data.getStoredSchedule() !=null){
+                classes = data.getStoredSchedule();
+                setAdapter();
+            }else{
+                //first time of the day.
+                Executors.newSingleThreadExecutor().execute(() -> {
+                    classes = WebScraper.scrape(data.getScheduleURL());
+                    Schedule.sortDates(classes);
+                    data.putLastStoredDate(deviceDate.getTodayDate());
+                    data.storeScheduleObjects(classes);
 
-                        runOnUiThread(() ->{
-                            setAdapter();
-                            navBar = findViewById(R.id.NavBar);
-                            navBar.startAnimation(AnimationUtils.loadAnimation(this, R.anim.navbar));
-                        });
+                    runOnUiThread(() ->{
+                        setAdapter();
+                        navBar = findViewById(R.id.NavBar);
+                        navBar.startAnimation(AnimationUtils.loadAnimation(this, R.anim.navbar));
                     });
+                });
 
-                    //create intents for navBar buttons.
-                }
-                Executors.newSingleThreadExecutor().execute(this::setNavBar);
             }
-
+            Executors.newSingleThreadExecutor().execute(this::setNavBar);
         }
-
 
     }
 
