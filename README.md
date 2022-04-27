@@ -20,7 +20,7 @@ I will probably roll out the first version as soon as its finish.
 # Pictures
 Main page                  |  Settings
 :-------------------------:|:-------------------------:
-![Main Page](/images/scheduleView.jpg)  |  ![TimeLine](/images/timelineView.jpg)
+![Main Page](/images/scheduleView.jpg)  |  ![TimeLine](/images/TimeLineLayout.jpg)
 
   
 # Plans
