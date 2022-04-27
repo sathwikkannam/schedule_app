@@ -10,19 +10,12 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-
-import com.google.mlkit.nl.translate.TranslateLanguage;
-
-import java.util.ArrayList;
 import java.util.Objects;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 
 public class SettingsActivity extends AppCompatActivity {
     RelativeLayout changeSchedule;
     Data data;
-    SwitchCompat englishSwitch, mode;
-    Intent out;
+    SwitchCompat englishSwitch, theme;
     Background background;
     boolean isLight;
     LinearLayout settingsHeader;
@@ -39,7 +32,7 @@ public class SettingsActivity extends AppCompatActivity {
         //initialize variables
         changeSchedule = findViewById(R.id.ChangeSchedule);
         englishSwitch = findViewById(R.id.EnglishSwitchInSettings);
-        mode = findViewById(R.id.ThemeSwitchInSettings);
+        theme = findViewById(R.id.ThemeSwitchInSettings);
         settingsHeader = findViewById(R.id.SettingsHeader);
         headerText = findViewById(R.id.SettingsText);
         toTimeLine = findViewById(R.id.toTimeline);
@@ -55,7 +48,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // set the switch to same setting as previous.
         englishSwitch.setChecked(data.getEnglishSetting());
-        mode.setChecked(isLight);
+        theme.setChecked(isLight);
 
         if(englishSwitch.isChecked() && !data.getScheduleURL().contains("sprak=" + "EN")){
             data.putScheduleURL(changeURLLang(data.getScheduleURL(), "EN"));
@@ -69,27 +62,15 @@ public class SettingsActivity extends AppCompatActivity {
         changeSchedule.setOnClickListener(view ->{
             data.removeScheduleURL();
             data.removeStoredSchedule();
-            out = new Intent(getApplicationContext(), WelcomeActivity.class);
-            startActivity(out);
+            data.removeOnOpenLayout();
+            data.removeStoredSchedule();
+            startActivity(new Intent(getApplicationContext(), WelcomeActivity.class));
 
         });
 
-        toSchedule.setOnClickListener(view -> {
-            storeSettings();
-            startActivity(new Intent(getApplicationContext(), MainActivity.class));
-        });
+        toSchedule.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), MainActivity.class).putExtra("Navigate", true)));
+        toTimeLine.setOnClickListener(view -> startActivity(new Intent(getApplicationContext(), TimeLineActivity.class)));
 
-        toTimeLine.setOnClickListener(view -> {
-            storeSettings();
-            startActivity(new Intent(getApplicationContext(), TimeLineActivity.class));
-        });
-
-    }
-
-
-    public void storeSettings(){
-        data.putEnglishSetting(englishSwitch.isChecked());
-        data.putTheme(mode.isChecked());
     }
 
     public String changeURLLang(String source, String to){
@@ -99,4 +80,11 @@ public class SettingsActivity extends AppCompatActivity {
                       replace(source.charAt(source.indexOf("sprak=") + 7), to.charAt(1));
     }
 
+    @Override
+    protected void onStop() {
+        super.onStop();
+        data.putEnglishSetting(englishSwitch.isChecked());
+        data.putTheme(theme.isChecked());
+
+    }
 }
