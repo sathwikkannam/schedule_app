@@ -1,6 +1,7 @@
 package com.example.schedule_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,7 +18,7 @@ import java.util.concurrent.Executors;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<Schedule> classes;
-    ListView scheduleList;
+    RecyclerView scheduleList;
     ScheduleAdapter adapter;
     Data data;
     Date deviceDate;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     //set adapter for the listview in schedule.xml
     public void setAdapter(){
-        adapter = new ScheduleAdapter(this, classes);
+        adapter = new ScheduleAdapter(getApplicationContext(), classes, data, deviceDate);
         scheduleList = findViewById(R.id.ScheduleListView);
         scheduleList.setAdapter(adapter);
 

@@ -3,12 +3,18 @@ package com.example.schedule_app;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.view.View;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 public class Shape {
     private final ArrayList<Drawable> rectangles;
     private final Context context;
+
+    public interface BackgroundColor{
+        void setBackgroundColor(View view, int position, Date date, TextView dateView);
+    }
 
     public Shape(Context context){
         this.context = context;

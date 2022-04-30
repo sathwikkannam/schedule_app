@@ -8,13 +8,14 @@
     android:id="@+id/ListViewLayout"
     android:background="@color/black">
 
-    <ListView
+    <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ScheduleListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:layout_editor_absoluteX="-31dp"
         tools:layout_editor_absoluteY="-304dp"
         tools:listitem="@layout/schedule_item"
+        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         android:divider="@null"
         android:dividerHeight="0dp"
         android:scrollbarSize="0dp" />
