@@ -74,10 +74,7 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     public String changeURLLang(String source, String to){
-        to = to.toUpperCase();
-
-        return source.replace(source.charAt(source.indexOf("sprak=") + 6), to.charAt(0)).
-                      replace(source.charAt(source.indexOf("sprak=") + 7), to.charAt(1));
+        return source.replace("sprak="+ (to.equals("EN")? "SV": "EN"), "sprak=" + to);
     }
 
     @Override
