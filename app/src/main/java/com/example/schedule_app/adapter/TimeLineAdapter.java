@@ -15,10 +15,10 @@ import androidx.annotation.Nullable;
 
 import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
-import com.example.schedule_app.FirebaseTranslator;
+import com.example.schedule_app.translation.FirebaseTranslator;
 import com.example.schedule_app.R;
 import com.example.schedule_app.Schedule;
-import com.example.schedule_app.DaysTranslation;
+import com.example.schedule_app.translation.DaysTranslation;
 import com.google.mlkit.nl.translate.TranslateLanguage;
 
 import java.util.ArrayList;

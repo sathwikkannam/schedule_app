@@ -1,4 +1,4 @@
-package com.example.schedule_app;
+package com.example.schedule_app.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -8,8 +8,13 @@ import android.os.Bundle;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 
+import com.example.schedule_app.Background;
+import com.example.schedule_app.Data;
+import com.example.schedule_app.Date;
+import com.example.schedule_app.R;
+import com.example.schedule_app.Schedule;
+import com.example.schedule_app.WebScraper;
 import com.example.schedule_app.adapter.ScheduleAdapter;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.example.schedule_app;
+package com.example.schedule_app.translation;
 
 import android.widget.TextView;
 

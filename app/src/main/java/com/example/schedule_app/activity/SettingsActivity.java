@@ -1,4 +1,4 @@
-package com.example.schedule_app;
+package com.example.schedule_app.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
@@ -9,6 +9,10 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.example.schedule_app.Background;
+import com.example.schedule_app.Data;
+import com.example.schedule_app.R;
 
 import java.util.Objects;
 

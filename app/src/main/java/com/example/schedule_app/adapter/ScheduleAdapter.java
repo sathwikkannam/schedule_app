@@ -11,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
-import com.example.schedule_app.DaysTranslation;
-import com.example.schedule_app.FirebaseTranslator;
+import com.example.schedule_app.translation.DaysTranslation;
+import com.example.schedule_app.translation.FirebaseTranslator;
 import com.example.schedule_app.adapter.interfaces.ItemOnClickListener;
 import com.example.schedule_app.R;
 import com.example.schedule_app.Schedule;
