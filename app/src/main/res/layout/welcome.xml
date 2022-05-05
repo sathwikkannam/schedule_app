@@ -50,18 +50,22 @@
             android:textColor="@color/red">
         </EditText>
 
-        <Button
+        <ImageButton
             android:id="@+id/EnterButtonInHome"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/enter"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:scaleType="fitXY"
             android:layout_marginTop="20dp"
             android:layout_below="@+id/WebsiteInputInHome"
             android:layout_centerInParent="true"
-            android:fontFamily="@font/aleo_bold"
-            android:background="@drawable/blue_rectangle"
-            android:textColor="@color/platinum"
-            android:textStyle="bold"/>
+            android:src="@drawable/ic_baseline_arrow_forward_ios_24"
+            android:background="@drawable/rectangle"
+            android:backgroundTint="@color/grey"
+            android:contentDescription="@string/todo" />
 
         <ProgressBar
             android:id="@+id/loader"

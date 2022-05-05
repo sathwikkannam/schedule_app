@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
@@ -19,7 +19,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class WelcomeActivity extends AppCompatActivity{
-    Button button;
+    ImageButton toMain;
     TextView websiteInput;
     String website;
     ExecutorService executor;
@@ -39,7 +39,7 @@ public class WelcomeActivity extends AppCompatActivity{
 
         //initialize variables
         bar =  findViewById(R.id.loader);
-        button = findViewById(R.id.EnterButtonInHome);
+        toMain = findViewById(R.id.EnterButtonInHome);
         websiteInput = findViewById(R.id.WebsiteInputInHome);
         welcomeHeader = findViewById(R.id.WelcomeHeader);
         headerText = findViewById(R.id.WelcomeText);
@@ -58,7 +58,7 @@ public class WelcomeActivity extends AppCompatActivity{
 
 
         //On click for the button
-        button.setOnClickListener(view -> {
+        toMain.setOnClickListener(view -> {
             if (websiteInput.getText().toString().contains(domain)) {
                 website = websiteInput.getText().toString();
                 setVisibility(website);
@@ -75,7 +75,7 @@ public class WelcomeActivity extends AppCompatActivity{
         executor.execute(() -> runOnUiThread(() ->{
             data.putScheduleURL(website);
             bar = findViewById(R.id.loader);
-            button.setVisibility(android.view.View.INVISIBLE);
+            toMain.setVisibility(android.view.View.INVISIBLE);
             websiteInput.setVisibility(android.view.View.INVISIBLE);
             bar.setVisibility(android.view.View.VISIBLE);
         }));

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:color="@color/lightPlatinum"
+tools:targetApi="lollipop">
     <item>
         <shape  android:shape="rectangle">
             <solid android:color="@color/platinum" />
@@ -8,4 +10,5 @@
         </shape>
     </item>
 
-</layer-list>
+</ripple>
+

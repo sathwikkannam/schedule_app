@@ -56,9 +56,7 @@ public class MainActivity extends AppCompatActivity {
             }else{
                 //first time of the day.
                 Executors.newSingleThreadExecutor().execute(() -> {
-                    classes = WebScraper.scrape(data.getScheduleURL());
-                    Schedule.sortDates(classes);
-                    data.putLastStoredDate(deviceDate.getTodayDate());
+                    classes = WebScraper.scrape(data.getScheduleURL(), data);
                     data.storeScheduleObjects(classes);
 
                     runOnUiThread(() ->{

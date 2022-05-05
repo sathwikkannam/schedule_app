@@ -12,9 +12,11 @@ import com.example.schedule_app.Background;
 import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
 import com.example.schedule_app.R;
+import com.example.schedule_app.Schedule;
 import com.example.schedule_app.WebScraper;
 import com.example.schedule_app.adapter.TimeLineAdapter;
 
+import java.util.ArrayList;
 import java.util.Objects;
 import java.util.concurrent.Executors;
 
@@ -41,11 +43,10 @@ public class TimeLineActivity extends AppCompatActivity {
         background = new Background(getApplicationContext(), this);
         navBar = findViewById(R.id.TimeLineNavBar);
 
-
         if(data.getLastStoredDate() != null && !data.getLastStoredDate().equals(deviceDate.getTodayDate()) && data.getStoredSchedule() !=null){
             Executors.newSingleThreadExecutor().execute(() ->{
                 data.removeStoredSchedule();
-                data.storeScheduleObjects(WebScraper.scrape(data.getScheduleURL()));
+                data.storeScheduleObjects(WebScraper.scrape(data.getScheduleURL(), data));
 
                 runOnUiThread(()->{
                     data.putLastStoredDate(deviceDate.getTodayDate());

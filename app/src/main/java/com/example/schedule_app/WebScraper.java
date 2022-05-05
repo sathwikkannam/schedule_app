@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 public class WebScraper {
 
-    public static ArrayList<Schedule> scrape(String url){
+    public static ArrayList<Schedule> scrape(String url, Data data){
         ArrayList<Schedule> classes = new ArrayList<>();
 
         try {
@@ -35,6 +35,9 @@ public class WebScraper {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        Schedule.sortDates(classes);
+        data.putLastStoredDate(new Date().getTodayDate());
 
         return classes;
     }

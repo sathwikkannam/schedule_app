@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
+import com.example.schedule_app.WebScraper;
 import com.example.schedule_app.translation.DaysTranslation;
 import com.example.schedule_app.translation.FirebaseTranslator;
 import com.example.schedule_app.adapter.interfaces.ItemOnClickListener;
@@ -140,19 +141,17 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
 
     @Override
     public void setBackgroundColor(View view, int position, Date date, TextView dateView) {
-        String currentDate;
+        String currentDate = localDataSet.get(position).getFullDate();
         String previousDate;
         String nextBlockDate;
-        String blockDate = dateView.getText().toString().substring(0, dateView.getText().length()-4);
-        if(blockDate.equals(date.getTodayDate())){
+        if(currentDate.equals(date.getTodayDate())){
             shape.toRed();
-        }if(blockDate.equals(date.getTomorrowDate())){
+        }if(currentDate.equals(date.getTomorrowDate())){
             shape.toGrey();
         }
 
         //upper, lower, middle, blue
         if(position < getItemCount()-1) {
-            currentDate = localDataSet.get(position).getFullDate();
             previousDate = (position-1 < 0)? null: localDataSet.get(position-1).getFullDate();
             nextBlockDate = localDataSet.get(position + 1).getFullDate();
 

@@ -1,5 +1,7 @@
 package com.example.schedule_app;
 
+import com.example.schedule_app.translation.DaysTranslation;
+
 import java.util.ArrayList;
 
 public class Schedule {
@@ -79,7 +81,8 @@ public class Schedule {
     }
 
     public String getFullDate(){
-        return String.format("%s %s", getDate(), getMonth());
+        return String.format("%s %s", getDate(), DaysTranslation.getInstance().getTranslated(getMonth()));
+
     }
 
     public static void sortDates(ArrayList<Schedule> classes){
