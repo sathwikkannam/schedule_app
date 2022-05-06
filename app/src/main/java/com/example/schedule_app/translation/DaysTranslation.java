@@ -29,6 +29,7 @@ public class DaysTranslation {
         translate.put("Lör", "Sat");
         translate.put("Sön", "Sun");
         translate.put("Maj", "May");
+        translate.put("Okt", "Oct");
     }
 
     public String getTranslated(String key){

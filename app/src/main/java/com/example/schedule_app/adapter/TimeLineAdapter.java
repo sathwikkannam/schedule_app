@@ -21,15 +21,18 @@ import com.example.schedule_app.Schedule;
 import com.example.schedule_app.translation.DaysTranslation;
 import com.google.mlkit.nl.translate.TranslateLanguage;
 
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.concurrent.Executors;
 
 public class TimeLineAdapter extends ArrayAdapter<Schedule> {
     private final FirebaseTranslator firebaseTranslator;
+    private final int dataSize;
 
     public TimeLineAdapter(@NonNull Context context, ArrayList<Schedule> timetable) {
         super(context, R.layout.time_line_item, timetable);
+        this.dataSize = timetable.size();
         this.firebaseTranslator = FirebaseTranslator.getInstance(TranslateLanguage.SWEDISH, TranslateLanguage.ENGLISH);
 
     }
@@ -52,12 +55,12 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         TextView teacher = convertView.findViewById(R.id.Teacher);
         TextView room = convertView.findViewById(R.id.Room);
         TextView info = convertView.findViewById(R.id.Details);
-        TextView weekAndMonth = convertView.findViewById(R.id.WeekAndMonth);
+        TextView month = convertView.findViewById(R.id.WeekAndMonth);
         View line = convertView.findViewById(R.id.line1);
         info.setVisibility(View.GONE);
 
 
-        setText(day, date, startTime, endTime, line, schedule, info);
+        setText(position, month, day, date, startTime, endTime, line, schedule, info);
         CommonTextView.setText(schedule, course, teacher, room);
         setVisibility(position, convertView.findViewById(R.id.TimeLineDate));
         setDateBackground(day, date, schedule);
@@ -111,8 +114,9 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         });
     }
 
-    private void setText(TextView day, TextView date, TextView startTime,
+    private void setText(int position, TextView month, TextView day, TextView date, TextView startTime,
                          TextView endTime, View line, Schedule schedule, TextView info){
+        String lastDay = null;
 
         if(schedule.getDuration() != null){
             StringTokenizer stringTokenizer = new StringTokenizer(schedule.getDuration(), "-");
@@ -136,11 +140,30 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
 
         date.setText(schedule.getDate());
 
+        if(position == 0 || (position - 1 >= 0 && !getItem(position).getMonth().equals(getItem(position - 1).getMonth()))){
+            month.setText(DaysTranslation.getInstance().getTranslated(schedule.getMonth()));
+            for (int i = position; i < dataSize; i++) {
+                if(!getItem(i).getMonth().equals(schedule.getMonth())){
+                    lastDay = getItem(i - 1).getDate();
+                    break;
+                } else if (i == dataSize - 1) {
+                    lastDay = getItem(i).getDate();
+                }
+            }
+            month.setText(String.format("%s %s ― %s", DaysTranslation.getInstance().getTranslated(schedule.getMonth()), schedule.getDate(), lastDay));
+            month.setVisibility(View.VISIBLE);
+        }else if (getItem(position).getMonth().equals(getItem(position - 1).getMonth())){
+            month.setVisibility(View.GONE);
+        }
+
     }
 
     public FirebaseTranslator getTranslator(){
         return this.firebaseTranslator;
     }
 
-
+    @Override
+    public int getCount() {
+        return this.dataSize;
+    }
 }

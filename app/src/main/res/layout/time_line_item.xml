@@ -20,7 +20,8 @@
         android:fontFamily="sans-serif"
         android:textSize="15sp"
         android:textStyle="bold"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
+
 
     <!--TODO: change marginTop to 10 if view above is visible-->
 
