@@ -6,6 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
+
 import java.util.ArrayList;
 
 public class Shape {
@@ -22,21 +24,21 @@ public class Shape {
         addRectangles();
     }
 
-    @SuppressLint("UseCompatLoadingForDrawables")
+
     private void addRectangles(){
-        rectangles.add(this.context.getDrawable(R.drawable.upper_rectangle));
-        rectangles.add(this.context.getDrawable(R.drawable.lower_rectangle));
-        rectangles.add(this.context.getDrawable(R.drawable.middle_rectangle));
-        rectangles.add(this.context.getDrawable(R.drawable.blue_rectangle));
+        rectangles.add(ContextCompat.getDrawable(context, R.drawable.upper_rectangle));
+        rectangles.add(ContextCompat.getDrawable(context, R.drawable.lower_rectangle));
+        rectangles.add(ContextCompat.getDrawable(context, R.drawable.middle_rectangle));
+        rectangles.add(ContextCompat.getDrawable(context, R.drawable.blue_rectangle));
     }
 
-    public void toRed(){
-        this.rectangles.forEach(rectangle -> rectangle.mutate().setTint(this.context.getColor(R.color.red)));
+    public void tintTo(final int color){
+        this.rectangles.forEach(rectangle -> rectangle.getConstantState().newDrawable().setTint(this.context.getColor(color)));
 
     }
 
-    public void toGrey(){
-        this.rectangles.forEach(rectangle -> rectangle.mutate().setTint(this.context.getColor(R.color.grey)));
+    public void reset(){
+        this.rectangles.forEach(rectangle -> rectangle.setTint(this.context.getColor(R.color.blue)));
     }
 
     @SuppressLint("UseCompatLoadingForDrawables")
@@ -54,6 +56,8 @@ public class Shape {
 
         return sendShape;
     }
+
+
 
 
 

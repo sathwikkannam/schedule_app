@@ -32,7 +32,6 @@ public class SettingsActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).hide();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-
         //initialize variables
         changeSchedule = findViewById(R.id.ChangeSchedule);
         englishSwitch = findViewById(R.id.EnglishSwitchInSettings);
@@ -53,13 +52,6 @@ public class SettingsActivity extends AppCompatActivity {
         // set the switch to same setting as previous.
         englishSwitch.setChecked(data.getEnglishSetting());
         theme.setChecked(isLight);
-
-        if(englishSwitch.isChecked() && !data.getScheduleURL().contains("sprak=" + "EN")){
-            data.putScheduleURL(changeURLLang(data.getScheduleURL(), "EN"));
-
-        }else if(!englishSwitch.isChecked() && !data.getScheduleURL().contains("sprak=" + "SV")){
-            data.putScheduleURL(changeURLLang(data.getScheduleURL(), "SV"));
-        }
 
 
         //set onclick for button to return to welcome activity.
@@ -86,6 +78,14 @@ public class SettingsActivity extends AppCompatActivity {
         super.onStop();
         data.putEnglishSetting(englishSwitch.isChecked());
         data.putTheme(theme.isChecked());
+
+        if(data.getEnglishSetting() && !data.getScheduleURL().contains("sprak=" + "EN")){
+            data.putScheduleURL(changeURLLang(data.getScheduleURL(), "EN"));
+
+        }else if(!data.getEnglishSetting() && !data.getScheduleURL().contains("sprak=" + "SV")){
+            data.putScheduleURL(changeURLLang(data.getScheduleURL(), "SV"));
+        }
+
 
     }
 }

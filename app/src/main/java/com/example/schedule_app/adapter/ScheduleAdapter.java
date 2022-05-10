@@ -48,12 +48,12 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         public ViewHolder(View view) {
             super(view);
             rowView = view;
-            date = (TextView)  view.findViewById(R.id.Date);
-            duration = (TextView)  view.findViewById(R.id.Duration);
-            course = (TextView)  view.findViewById(R.id.Course);
-            teacher = (TextView)  view.findViewById(R.id.Teacher);
-            info = (TextView)  view.findViewById(R.id.Info);
-            room = (TextView)  view.findViewById(R.id.Room);
+            date = view.findViewById(R.id.Date);
+            duration = view.findViewById(R.id.Duration);
+            course = view.findViewById(R.id.Course);
+            teacher = view.findViewById(R.id.Teacher);
+            info = view.findViewById(R.id.Info);
+            room = view.findViewById(R.id.Room);
 
             // Define click listener for the ViewHolder's View
             onClick(view);
@@ -116,6 +116,7 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         View view = LayoutInflater.from(viewGroup.getContext())
                 .inflate(R.layout.schedule_item, viewGroup, false);
 
+
         return new ViewHolder(view);
     }
 
@@ -144,10 +145,11 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
         String currentDate = localDataSet.get(position).getFullDate();
         String previousDate;
         String nextBlockDate;
+
         if(currentDate.equals(date.getTodayDate())){
-            shape.toRed();
-        }if(currentDate.equals(date.getTomorrowDate())){
-            shape.toGrey();
+            shape.tintTo(R.color.red);
+        }else if(currentDate.equals(date.getTomorrowDate())){
+            shape.tintTo(R.color.grey);
         }
 
         //upper, lower, middle, blue
@@ -164,7 +166,9 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
             }else{
                 view.setBackground(shape.getShape("regular"));
             }
+            shape.reset();
         }
+
 
 
     }
@@ -173,6 +177,16 @@ public class ScheduleAdapter extends RecyclerView.Adapter<ScheduleAdapter.ViewHo
     @Override
     public int getItemCount() {
         return localDataSet.size();
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
     }
 
 

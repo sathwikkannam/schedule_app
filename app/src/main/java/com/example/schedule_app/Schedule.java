@@ -14,6 +14,8 @@ public class Schedule {
     private final String room;
     private String info;
     private String month;
+    private final String startTime;
+    private final String endTime;
 
     public Schedule(String week, String day, String date, String month, String duration,
                     String course, String teacher, String room, String info) {
@@ -27,6 +29,8 @@ public class Schedule {
         this.teacher = teacher;
         this.room = room;
         this.info = info;
+        this.startTime = duration.split("-")[0];
+        this.endTime = duration.split("-")[1];
     }
 
 

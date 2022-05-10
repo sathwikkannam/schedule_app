@@ -9,6 +9,7 @@ import com.google.mlkit.nl.translate.TranslatorOptions;
 public class FirebaseTranslator {
     private Translator translator;
     private static FirebaseTranslator firebaseTranslator = null;
+    private String translatedText;
 
     private FirebaseTranslator(String source, String target){
         createTranslatorModel(source, target);
@@ -34,19 +35,22 @@ public class FirebaseTranslator {
     }
 
     private void downloadModel(){
-        DownloadConditions conditions = new DownloadConditions.Builder().requireWifi().build();
-        this.translator.downloadModelIfNeeded(conditions);
+        this.translator.downloadModelIfNeeded(new DownloadConditions.Builder().requireWifi().build());
     }
 
-    public void closeTranslationModel(){
-        this.translator.close();
-    }
+    public void closeTranslationModel(){ translator.close(); }
 
     public void translate(TextView view, String text){
         this.translator.translate(text)
                 .addOnSuccessListener(view::setText)
                 .addOnFailureListener(exception -> view.setText(text));
 
+    }
+
+    public String getTranslated(String toTranslate){
+        this.translator.translate(toTranslate).addOnSuccessListener(translated -> translatedText = translated);
+
+        return this.translatedText;
     }
 
 

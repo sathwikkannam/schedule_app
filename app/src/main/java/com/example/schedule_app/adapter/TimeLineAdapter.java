@@ -8,10 +8,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
@@ -23,6 +25,7 @@ import com.google.mlkit.nl.translate.TranslateLanguage;
 
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.StringTokenizer;
 import java.util.concurrent.Executors;
 
@@ -30,11 +33,11 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
     private final FirebaseTranslator firebaseTranslator;
     private final int dataSize;
 
+
     public TimeLineAdapter(@NonNull Context context, ArrayList<Schedule> timetable) {
         super(context, R.layout.time_line_item, timetable);
         this.dataSize = timetable.size();
         this.firebaseTranslator = FirebaseTranslator.getInstance(TranslateLanguage.SWEDISH, TranslateLanguage.ENGLISH);
-
     }
 
     @NonNull
@@ -57,10 +60,11 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         TextView info = convertView.findViewById(R.id.Details);
         TextView month = convertView.findViewById(R.id.WeekAndMonth);
         View line = convertView.findViewById(R.id.line1);
+        LinearLayout monthLayout = convertView.findViewById(R.id.MonthLayout);
         info.setVisibility(View.GONE);
 
 
-        setText(position, month, day, date, startTime, endTime, line, schedule, info);
+        setText(position, monthLayout, month, day, date, startTime, endTime, line, schedule, info);
         CommonTextView.setText(schedule, course, teacher, room);
         setVisibility(position, convertView.findViewById(R.id.TimeLineDate));
         setDateBackground(day, date, schedule);
@@ -82,8 +86,8 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
 
 
     private void setDateBackground(TextView day, TextView dateView, Schedule schedule){
-        Drawable circle = getContext().getDrawable(R.drawable.circle);
-        circle.mutate().setTint(getContext().getColor(R.color.Yellow));
+        Drawable circle = Objects.requireNonNull(ContextCompat.getDrawable(getContext(), R.drawable.circle)).getConstantState().newDrawable();
+        circle.setTint(getContext().getColor(R.color.Yellow));
         int padding = (int) (getContext().getResources().getDisplayMetrics().density * 17);
 
         if(schedule.getFullDate().equals(new Date().getTodayDate())){
@@ -114,7 +118,7 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         });
     }
 
-    private void setText(int position, TextView month, TextView day, TextView date, TextView startTime,
+    private void setText(int position, LinearLayout monthLayout, TextView month, TextView day, TextView date, TextView startTime,
                          TextView endTime, View line, Schedule schedule, TextView info){
         String lastDay = null;
 
@@ -137,7 +141,6 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
             day.setText(schedule.getDay());
             info.setText(schedule.getInfo());
         }
-
         date.setText(schedule.getDate());
 
         if(position == 0 || (position - 1 >= 0 && !getItem(position).getMonth().equals(getItem(position - 1).getMonth()))){
@@ -151,9 +154,9 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
                 }
             }
             month.setText(String.format("%s %s ― %s", DaysTranslation.getInstance().getTranslated(schedule.getMonth()), schedule.getDate(), lastDay));
-            month.setVisibility(View.VISIBLE);
+            monthLayout.setVisibility(View.VISIBLE);
         }else if (getItem(position).getMonth().equals(getItem(position - 1).getMonth())){
-            month.setVisibility(View.GONE);
+            monthLayout.setVisibility(View.GONE);
         }
 
     }

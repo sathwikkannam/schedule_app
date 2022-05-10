@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Schedule_App">
+
         <activity
             android:name=".activity.TimeLineActivity"
             android:exported="false" />

@@ -5,6 +5,7 @@
     android:id="@+id/object_layout"
     android:paddingStart="20dp"
     android:paddingEnd="20dp"
+    android:animateLayoutChanges="true"
     android:paddingTop="40dp"
     android:paddingBottom="40dp">
 
