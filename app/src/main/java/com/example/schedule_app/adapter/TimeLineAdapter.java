@@ -17,6 +17,7 @@ import androidx.core.content.ContextCompat;
 
 import com.example.schedule_app.Data;
 import com.example.schedule_app.Date;
+import com.example.schedule_app.Time;
 import com.example.schedule_app.translation.FirebaseTranslator;
 import com.example.schedule_app.R;
 import com.example.schedule_app.Schedule;
@@ -59,12 +60,13 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
         TextView room = convertView.findViewById(R.id.Room);
         TextView info = convertView.findViewById(R.id.Details);
         TextView month = convertView.findViewById(R.id.WeekAndMonth);
-        View line = convertView.findViewById(R.id.line1);
+        TextView difference = convertView.findViewById(R.id.difference);
+
         LinearLayout monthLayout = convertView.findViewById(R.id.MonthLayout);
         info.setVisibility(View.GONE);
 
 
-        setText(position, monthLayout, month, day, date, startTime, endTime, line, schedule, info);
+        setText(position, monthLayout, month, day, date, startTime, endTime, schedule, info, difference);
         CommonTextView.setText(schedule, course, teacher, room);
         setVisibility(position, convertView.findViewById(R.id.TimeLineDate));
         setDateBackground(day, date, schedule);
@@ -119,19 +121,19 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
     }
 
     private void setText(int position, LinearLayout monthLayout, TextView month, TextView day, TextView date, TextView startTime,
-                         TextView endTime, View line, Schedule schedule, TextView info){
+                         TextView endTime, Schedule schedule, TextView info, TextView difference){
         String lastDay = null;
+        String hour = "Hour";
+        String minute = "Min";
 
         if(schedule.getDuration() != null){
             StringTokenizer stringTokenizer = new StringTokenizer(schedule.getDuration(), "-");
             startTime.setText(stringTokenizer.nextToken());
             endTime.setText(stringTokenizer.nextToken());
             endTime.setVisibility(View.VISIBLE);
-            line.setVisibility(View.VISIBLE);
         }else{
             startTime.setText("N/A");
             endTime.setVisibility(View.GONE);
-            line.setVisibility(View.GONE);
         }
 
         if(Data.getInstance(getContext()).getEnglishSetting()){
@@ -157,6 +159,22 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
             monthLayout.setVisibility(View.VISIBLE);
         }else if (getItem(position).getMonth().equals(getItem(position - 1).getMonth())){
             monthLayout.setVisibility(View.GONE);
+        }
+
+        Time time = new Date().getDifference(startTime.getText().toString(), endTime.getText().toString());
+
+        if(time.getHour() != 1){
+            hour = hour + "s";
+        }else if(time.getMins() != 1){
+            minute = minute + "s";
+        }
+
+        if(time.getHour() == 0){
+            difference.setText(String.format("%s %s", time.getMins(), minute));
+        }else if (time.getMins() == 0){
+            difference.setText(String.format("%s %s",  time.getHour(), hour));
+        }else{
+            difference.setText(String.format("%s %s %s %s", time.getHour(), hour, time.getMins(), minute));
         }
 
     }

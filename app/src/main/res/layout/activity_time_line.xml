@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".activity.MainActivity"
     android:id="@+id/ListViewLayout"
-    android:background="@color/black">
+    android:background="@color/darknavy">
 
     <ListView
         android:id="@+id/TimeLineListView"

@@ -21,4 +21,6 @@
     <color name="lightGrey">#545454</color>
     <color name="Yellow">#CC9F38</color>
     <color name="lightPlatinum">#D3D3D3</color>
+    <color name="orange">#f74a16</color>
+    <color name="darknavy">#151616</color>
 </resources>

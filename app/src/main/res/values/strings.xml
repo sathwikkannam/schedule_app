@@ -25,4 +25,5 @@
     <string name="endtime">EndTime</string>
     <string name="starttime">StartTime</string>
     <string name="classdetails">ClassDetails</string>
+    <string name="difference">Difference</string>
 </resources>

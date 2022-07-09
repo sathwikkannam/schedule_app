@@ -88,13 +88,13 @@
             </LinearLayout>
         </FrameLayout>
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:id="@+id/TimeLineSchedule"
-            android:background="@drawable/rectangle"
-            android:backgroundTint="@color/darkGrey">
+            android:orientation="vertical"
+            android:background="@drawable/gradient">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -105,10 +105,12 @@
                 android:layout_marginBottom="15dp"
                 tools:ignore="UselessParent">
 
+
                 <RelativeLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/TimeDetails">
+                    android:id="@+id/TimeDetails"
+                    android:textAlignment="center">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -118,81 +120,126 @@
                         android:paddingRight="5dp"
                         android:id="@+id/StartTime"
                         android:textColor="@color/black"
-                        android:background="@drawable/rectangle"
+                        android:background="@drawable/small_corner"
                         android:backgroundTint="@color/Yellow"
                         android:textStyle="bold"
-                        android:textSize="17sp" />
-
-                    <View
-                        android:layout_width="25dp"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="22dp"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginRight="7dp"
-                        android:layout_toEndOf="@+id/StartTime"
-                        android:background="@color/Yellow"
-                        android:id="@+id/line1"
-                        android:layout_centerInParent="true"/>
+                        android:textSize="30sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/endtime"
-                        android:textColor="@color/black"
+                        android:textColor="@color/white"
                         android:layout_gravity="end"
                         android:id="@+id/EndTime"
-                        android:layout_toEndOf="@+id/line1"
+                        android:layout_below="@+id/StartTime"
+                        android:layout_marginTop="10dp"
                         android:paddingLeft="5dp"
                         android:paddingRight="5dp"
-                        android:background="@drawable/rectangle"
-                        android:backgroundTint="@color/Yellow"
                         android:textStyle="bold"
-                        android:textSize="17sp"/>
+                        android:textSize="30sp"/>
+
+                    <ImageView
+                        android:id="@+id/clock"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_toEndOf="@id/StartTime"
+                        android:contentDescription="@string/todo"
+                        android:src="@drawable/time" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toEndOf="@+id/clock"
+                        android:gravity="center"
+                        android:layout_centerVertical="true"
+                        android:textAlignment="center"
+                        android:text="@string/difference"
+                        android:textStyle="bold"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/orange"
+                        android:textSize="15sp"
+                        android:id="@+id/difference"/>
 
                 </RelativeLayout>
 
+
                 <TextView
+                    android:id="@+id/Course"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/TimeDetails"
+                    android:layout_marginTop="12dp"
+                    android:fontFamily="@font/habibi"
+                    android:layout_marginStart="5dp"
                     android:gravity="start"
                     android:text="@string/program"
-                    android:textSize="20sp"
-                    android:id="@+id/Course"
-                    android:layout_marginTop="12dp"
-                    android:fontFamily="@font/habibi"
-                    android:textColor="@color/platinum"/>
+                    android:textColor="@color/platinum"
+                    android:textSize="20sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_below="@+id/Course"
-                    android:background="@color/lightGrey"
-                    android:layout_marginTop="12dp"
-                    android:id="@+id/Line"/>
 
+
+            </RelativeLayout>
+
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/bottom_rect"
+                android:backgroundTint="@color/darkGrey">
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="15dp"
+                tools:ignore="UselessParent">
 
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/Line"
                     android:text="@string/teacher"
-                    android:gravity="end"
                     android:layout_marginTop="12dp"
-                    android:layout_marginStart="90dp"
                     android:fontFamily="@font/habibi"
+                    android:layout_toStartOf="@id/Person"
+                    android:layout_marginEnd="5dp"
+                    android:paddingStart="90dp"
                     android:textSize="17sp"
+                    android:gravity="end"
                     android:id="@+id/Teacher"
-                    android:textColor="@color/platinum"/>
+                    android:textColor="@color/platinum"
+                    tools:ignore="RtlSymmetry" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Person"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/person" />
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/Location"
+                    android:layout_marginTop="12dp"
+                    android:src="@drawable/location"/>
 
                 <TextView
                     android:id="@+id/Room"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/Line"
                     android:layout_marginEnd="100dp"
                     android:layout_marginTop="12dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toEndOf="@+id/Location"
                     android:fontFamily="@font/habibi"
                     android:text="@string/room"
                     android:textSize="17sp"
@@ -209,7 +256,7 @@
                     android:paddingBottom="10dp"
                     android:paddingTop="10dp"
                     android:id="@+id/Details"
-                    android:background="@drawable/rectangle"
+                    android:background="@drawable/small_corner"
                     android:backgroundTint="@color/Yellow"
                     android:text="@string/info"
                     android:layout_centerHorizontal="true"
@@ -217,10 +264,19 @@
                     android:fontFamily="sans-serif-medium"
                     android:textSize="20sp"
                     android:textColor="@color/black"/>
+
+
             </RelativeLayout>
 
 
-        </RelativeLayout>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+
+
 
     </LinearLayout>
 
