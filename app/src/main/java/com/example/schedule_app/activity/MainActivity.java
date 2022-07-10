@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity {
         //initialize variables.
         data =  Data.getInstance(getApplicationContext());
 
-        data.putScheduleURL("https://schema.hkr.se/setup/jsp/Schema.jsp?startDatum=idag&intervallTyp=m&intervallAntal=6&sprak=EN&sokMedAND=true&forklaringar=true&resurser=p.TBIT2+2021+35+100+NML+en");
-
 
         if(data.getScheduleURL() == null || data.getScheduleURL().length() == 0){
             startActivity(new Intent(this, WelcomeActivity.class));

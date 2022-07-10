@@ -34,7 +34,6 @@ public class TimeLineAdapter extends ArrayAdapter<Schedule> {
     private final FirebaseTranslator firebaseTranslator;
     private final int dataSize;
 
-
     public TimeLineAdapter(@NonNull Context context, ArrayList<Schedule> timetable) {
         super(context, R.layout.time_line_item, timetable);
         this.dataSize = timetable.size();
