@@ -1,5 +1,5 @@
 
-# HKR Schedule
+# Schedule app
 
 # Pictures
 Main page                  |  Settings
